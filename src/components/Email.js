@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
-import { Button } from 'react-bootstrap';
+import { Row, Col, Button, FormGroup, FormControl, ControlLabel, Form } from 'react-bootstrap';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
-
 class Email extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +34,17 @@ class Email extends Component {
     const message = this.emailValidate();
     if (message.length !== 0) {
       this.setState({ errorMessage: message }, () => { console.log(message); });
-    } else if (verifiedCaptcha) {
-      console.log(this.props.fetchApi(`${url_api}/email/${this.state.email}`, { method: 'GET' }));
-      this.props.increasePhase();
+    }
+    else if (verifiedCaptcha) {
+      const response = this.props.fetchApi(`${url_api}/email/${this.state.email}`, { method: 'GET' });
+      response.then((res) => {
+        if (res) {
+          this.props.setEmail(this.state.email);
+          this.props.increasePhase();
+        } else {
+          this.setState({ errorMessage: ['Email Not Exitsed'] });
+        }
+      });
     }
   }
 
@@ -64,13 +71,19 @@ class Email extends Component {
 
   render() {
     const { errorMessage, email } = this.state;
+    const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="email_form">
-        <input
-          type="text" name="site_name"
-          value={email}
-          onChange={(event) => this.setState({ email: event.target.value.trim() })}
-        />
+        <h2> Who are you ? </h2>
+        <h5> To recover your account, begin entering your user ID and the captcha </h5>
+
+
+        <Form>
+          <FormGroup controlId="formInlineName" validationState={validate_state} >
+            <ControlLabel>User ID </ControlLabel>{' '}
+            <FormControl type="text" value={email} onChange={(event) => this.setState({ email: event.target.value.trim() })} />
+          </FormGroup>
+        </Form>
 
         {errorMessage.length >= 0 &&
           <div className="error_message">
@@ -81,15 +94,17 @@ class Email extends Component {
             )}
           </div>
         }
-
         <Recaptcha
           sitekey="6Le-hy0UAAAAAKSlnMYNxzjOjSC_TxJOUCUi_TmB"
           render="explicit"
           verifyCallback={this.verifyCallback}
           onloadCallback={this.onloadCallback}
         />
-        <Button bsStyle="primary" onClick={this.onClickNext}>Next</Button>
-      </div>
+
+        <Button onClick={this.onClickNext}>
+          Next
+          </Button>
+      </div >
     );
   }
 }
@@ -97,6 +112,7 @@ class Email extends Component {
 Email.propTypes = {
   increasePhase: PropTypes.func,
   fetchApi: PropTypes.func,
+  setEmail: PropTypes.func,
 };
 
 export default Email;

@@ -1,15 +1,20 @@
 import React, { Component, PropTypes } from 'react';
-import Recaptcha from 'react-recaptcha';
+import {
+  Button, Modal, ModalBody, ModalHeader, ModalFooter,
+  FormGroup, FormControl, ControlLabel, Form, ButtonToolbar
+} from 'react-bootstrap';
 
 class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.onClickFinish = this.onClickFinish.bind(this);
     this.passwordValidate = this.passwordValidate.bind(this);
+    this.onClickCancel = this.onClickCancel.bind(this);
     this.state = {
       password: '',
       confirmPassword: '',
       errorMessage: [],
+      success: false,
     };
   }
 
@@ -21,19 +26,20 @@ class ResetPassword extends Component {
   }
 
   onClickFinish() {
-    console.log(this.state.password);
     const message = this.passwordValidate();
     if (message.length !== 0) {
       this.setState({ errorMessage: message }, () => { console.log(message); });
+    } else {
+      this.setState({ success: true });
     }
-    console.log('finished');
   }
 
   onClickCancel() {
-    this.setState = {
+    this.setState({
       password: '',
       confirmPassword: '',
-    };
+      errorMessage: [],
+    });
   }
 
   passwordValidate() {
@@ -51,37 +57,58 @@ class ResetPassword extends Component {
   }
 
   render() {
-    const errorMessage = this.state.errorMessage;
+    const { errorMessage, success, password, confirmPassword } = this.state;
+    const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
-        <input
-          type="password" name="password"
-          value={this.state.password}
-          onChange={(event) => this.setState({ password: event.target.value })}
-        />
-        <input
-          type="password" name="password_confirm"
-          value={this.state.confirmPassword}
-          onChange={(event) => this.setState({ confirmPassword: event.target.value })}
-        />
+        {success &&
+          <div className="static-modal">
+            <Modal.Dialog>
+              <Modal.Header>
+                <Modal.Title>Success</Modal.Title>
+              </Modal.Header>
 
-        {errorMessage.length >= 0 &&
-        <div className="error_message">
-          { errorMessage.map((message, index) =>
-            <li key={index}>
-              {message}
-            </li>
-          )}
+              <Modal.Body>
+                Success! Your password has been updated!
+      </Modal.Body>
+
+              <Modal.Footer>
+                <Button onClick={() => window.location.reload()}>Close</Button>
+              </Modal.Footer>
+
+            </Modal.Dialog>
           </div>
         }
 
-        <button onClick={this.onClickFinish}>
-          Finish
-        </button>
 
-        <button onClick={this.onClickCancel}>
-          Cancel
-        </button>
+        <Form>
+          <FormGroup controlId="formInlineName" validationState={validate_state} >
+            <ControlLabel>Password </ControlLabel>{' '}
+            <FormControl type="password" value={password} onChange={(event) => this.setState({ password: event.target.value.trim() })} />
+
+            <ControlLabel>Password Confirm</ControlLabel>{' '}
+            <FormControl type="password" value={confirmPassword} onChange={(event) => this.setState({ confirmPassword: event.target.value.trim() })} />
+          </FormGroup>
+        </Form>
+
+        {errorMessage.length >= 0 &&
+          <div className="error_message">
+            {errorMessage.map((message, index) =>
+              <li key={index}>
+                {message}
+              </li>
+            )}
+          </div>
+        }
+        <ButtonToolbar>
+          <Button bsStyle="primary" onClick={this.onClickFinish}>
+            Finish
+        </Button>
+
+          <Button bsStyle="warning" onClick={this.onClickCancel}>
+            Cancel
+        </Button>
+        </ButtonToolbar>
       </div>
     );
   }
