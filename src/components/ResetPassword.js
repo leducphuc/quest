@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Button, Modal, ModalBody, ModalHeader, ModalFooter,
-  FormGroup, FormControl, ControlLabel, Form, ButtonToolbar
-} from 'react-bootstrap';
+import { Button, Modal, FormGroup, FormControl, ControlLabel, Form,
+  ButtonToolbar } from 'react-bootstrap';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -84,10 +82,16 @@ class ResetPassword extends Component {
         <Form>
           <FormGroup controlId="formInlineName" validationState={validate_state} >
             <ControlLabel>Password </ControlLabel>{' '}
-            <FormControl type="password" value={password} onChange={(event) => this.setState({ password: event.target.value.trim() })} />
+            <FormControl
+              type="password" value={password}
+              onChange={(event) => this.setState({ password: event.target.value.trim() })}
+            />
 
             <ControlLabel>Password Confirm</ControlLabel>{' '}
-            <FormControl type="password" value={confirmPassword} onChange={(event) => this.setState({ confirmPassword: event.target.value.trim() })} />
+            <FormControl
+              type="password" value={confirmPassword}
+              onChange={(event) => this.setState({ confirmPassword: event.target.value.trim() })}
+            />
           </FormGroup>
         </Form>
 

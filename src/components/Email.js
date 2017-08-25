@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel, Form } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Form } from 'react-bootstrap';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
@@ -13,7 +13,6 @@ class Email extends Component {
     this.onloadCallback = this.onloadCallback.bind(this);
     this.state = {
       email: '',
-      captchaValid: false,
       errorMessage: [],
       verifiedCaptcha: false,
     };
@@ -34,8 +33,7 @@ class Email extends Component {
     const message = this.emailValidate();
     if (message.length !== 0) {
       this.setState({ errorMessage: message }, () => { console.log(message); });
-    }
-    else if (verifiedCaptcha) {
+    } else if (verifiedCaptcha) {
       const response = this.props.fetchApi(`${url_api}/email/${this.state.email}`, { method: 'GET' });
       response.then((res) => {
         if (res) {
@@ -49,18 +47,16 @@ class Email extends Component {
   }
 
   emailValidate() {
-    const email = this.state.email;
+    const { email, verifiedCaptcha } = this.state;
     const message = [];
 
+    if (!verifiedCaptcha) {
+      message.push('Captcha has not been completed');
+    }
     if (email.length === 0) {
-      message.push('Email con not leave blank');
-    } else {
-      if (email.length < 8) {
-        message.push('Email should not shorter than 8 characters');
-      }
-      if (!EMAIL_REGEX.test(email)) {
-        message.push('Invalid Email');
-      }
+      message.push('Email can not leave blank');
+    } else if (email.length < 6 || !EMAIL_REGEX.test(email)) {
+      message.push('Invalid Email');
     }
     return message;
   }
@@ -76,15 +72,12 @@ class Email extends Component {
       <div className="email_form">
         <h2> Who are you ? </h2>
         <h5> To recover your account, begin entering your user ID and the captcha </h5>
-
-
         <Form>
           <FormGroup controlId="formInlineName" validationState={validate_state} >
             <ControlLabel>User ID </ControlLabel>{' '}
-            <FormControl type="text" value={email} onChange={(event) => this.setState({ email: event.target.value.trim() })} />
+            <FormControl type="text" value={email} maxLength="30" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
           </FormGroup>
         </Form>
-
         {errorMessage.length >= 0 &&
           <div className="error_message">
             {errorMessage.map((message, index) =>
@@ -100,7 +93,6 @@ class Email extends Component {
           verifyCallback={this.verifyCallback}
           onloadCallback={this.onloadCallback}
         />
-
         <Button onClick={this.onClickNext}>
           Next
           </Button>

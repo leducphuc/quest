@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
-const CODE_REGEX = /^([0-9]{4})/;
+const CODE_REGEX = /^([0-9]{6})/;
 const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
 class Verify extends Component {
   constructor(props) {
@@ -113,7 +113,7 @@ class Verify extends Component {
           <div className="col-md-8 right">
             <Form>
               <FormGroup controlId="formInlineName" validationState={validate_state} >
-                <ControlLabel>We've sent you a verification code Please enter it below </ControlLabel>{' '}
+                <ControlLabel>We have sent you a verification code Please enter it below </ControlLabel>{' '}
                 <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} />
               </FormGroup>
             </Form><br />
