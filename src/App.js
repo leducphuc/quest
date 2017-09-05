@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Grid } from 'react-bootstrap';
+import { Navbar, Grid, Panel } from 'react-bootstrap';
 import './App.css';
 import logo from './logo.svg';
 import Email from './components/Email';
@@ -13,7 +13,7 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 0,
+      phase: 2,
       isFetching: false,
       email: '',
     };
@@ -50,7 +50,9 @@ class App extends Component {
             </Navbar>
           </div>
           <div clasName="body">
-            <h1> Get back into your account </h1>
+            <Panel>
+              <h3> Get back into your account </h3>
+            </Panel>
             {phase === 0 &&
               <Email
                 increasePhase={this.increasePhase}

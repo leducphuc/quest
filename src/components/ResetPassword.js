@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Modal, FormGroup, FormControl, ControlLabel, Form,
-  ButtonToolbar } from 'react-bootstrap';
+import {
+  Panel, Button, Modal, FormGroup, FormControl, ControlLabel, Form,
+  ButtonToolbar
+} from 'react-bootstrap';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -59,60 +61,64 @@ class ResetPassword extends Component {
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
-        {success &&
-          <div className="static-modal">
-            <Modal.Dialog>
-              <Modal.Header>
-                <Modal.Title>Success</Modal.Title>
-              </Modal.Header>
+        <div className="row vertical-offset-100">
+          <div className="col-md-4 col-md-offset-4">
+            <Panel className="panel-default">
+              {success &&
+                <div className="static-modal">
+                  <Modal.Dialog>
+                    <Modal.Header>
+                      <Modal.Title>Success</Modal.Title>
+                    </Modal.Header>
 
-              <Modal.Body>
-                Success! Your password has been updated!
+                    <Modal.Body>
+                      Success! Your password has been updated!
       </Modal.Body>
 
-              <Modal.Footer>
-                <Button onClick={() => window.location.reload()}>Close</Button>
-              </Modal.Footer>
+                    <Modal.Footer>
+                      <Button onClick={() => window.location.reload()}>Close</Button>
+                    </Modal.Footer>
 
-            </Modal.Dialog>
-          </div>
-        }
+                  </Modal.Dialog>
+                </div>
+              }
 
 
-        <Form>
-          <FormGroup controlId="formInlineName" validationState={validate_state} >
-            <ControlLabel>Password </ControlLabel>{' '}
-            <FormControl
-              type="password" value={password}
-              onChange={(event) => this.setState({ password: event.target.value.trim() })}
-            />
+              <Form>
+                <FormGroup validationState={validate_state} >
+                  <FormControl
+                    type="password" value={password} placeholder="Password"
+                    onChange={(event) => this.setState({ password: event.target.value.trim() })}
+                  />
 
-            <ControlLabel>Password Confirm</ControlLabel>{' '}
-            <FormControl
-              type="password" value={confirmPassword}
-              onChange={(event) => this.setState({ confirmPassword: event.target.value.trim() })}
-            />
-          </FormGroup>
-        </Form>
+                  <FormControl
+                    type="password" value={confirmPassword} placeholder="Password Confirmation"
+                    onChange={(event) => this.setState({ confirmPassword: event.target.value.trim() })}
+                  />
+                </FormGroup>
+              </Form>
 
-        {errorMessage.length >= 0 &&
-          <div className="error_message">
-            {errorMessage.map((message, index) =>
-              <li key={index}>
-                {message}
-              </li>
-            )}
-          </div>
-        }
-        <ButtonToolbar>
-          <Button bsStyle="primary" onClick={this.onClickFinish}>
-            Finish
+              {errorMessage.length >= 0 &&
+                <div className="error_message">
+                  {errorMessage.map((message, index) =>
+                    <li key={index}>
+                      {message}
+                    </li>
+                  )}
+                </div>
+              }
+              <ButtonToolbar>
+                <Button className="btn btn-lg btn-success btn-block btn-sm rspass" onClick={this.onClickFinish}>
+                  Finish
         </Button>
 
-          <Button bsStyle="warning" onClick={this.onClickCancel}>
-            Cancel
+                <Button className="btn btn-lg btn-warning btn-block btn-sm rspass" onClick={this.onClickCancel}>
+                  Cancel
         </Button>
-        </ButtonToolbar>
+              </ButtonToolbar>
+            </Panel>
+          </div>
+        </div>
       </div>
     );
   }

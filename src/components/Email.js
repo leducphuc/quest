@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
-import { Button, FormGroup, FormControl, ControlLabel, Form } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Form, Panel } from 'react-bootstrap';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
@@ -70,32 +70,39 @@ class Email extends Component {
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="email_form">
-        <h2> Who are you ? </h2>
-        <h5> To recover your account, begin entering your user ID and the captcha </h5>
-        <Form>
-          <FormGroup controlId="formInlineName" validationState={validate_state} >
-            <ControlLabel>User ID </ControlLabel>{' '}
-            <FormControl type="text" value={email} maxLength="30" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
-          </FormGroup>
-        </Form>
-        {errorMessage.length >= 0 &&
-          <div className="error_message">
-            {errorMessage.map((message, index) =>
-              <li key={index}>
-                {message}
-              </li>
-            )}
+        <div className="row vertical-offset-100">
+          <div className="col-md-4 col-md-offset-4">
+            <Panel className="panel-default">
+              <h2> Who are you ? </h2>
+              <h5> To recover your account, begin entering your user ID and the captcha </h5>
+              <div className="panel-body">
+                <Form>
+                  <FormGroup validationState={validate_state} >
+                    <FormControl placeholder="User ID" type="text" value={email} maxLength="30" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
+                  </FormGroup>
+                </Form>
+                {errorMessage.length >= 0 &&
+                  <div className="error_message">
+                    {errorMessage.map((message, index) =>
+                      <li key={index}>
+                        {message}
+                      </li>
+                    )}
+                  </div>
+                }
+                <Recaptcha
+                  sitekey="6Le-hy0UAAAAAKSlnMYNxzjOjSC_TxJOUCUi_TmB"
+                  render="explicit"
+                  verifyCallback={this.verifyCallback}
+                  onloadCallback={this.onloadCallback}
+                />
+                <Button className="btn btn-lg btn-success btn-block" onClick={this.onClickNext}>
+                  Next >>
+                 </Button>
+              </div>
+            </Panel>
           </div>
-        }
-        <Recaptcha
-          sitekey="6Le-hy0UAAAAAKSlnMYNxzjOjSC_TxJOUCUi_TmB"
-          render="explicit"
-          verifyCallback={this.verifyCallback}
-          onloadCallback={this.onloadCallback}
-        />
-        <Button onClick={this.onClickNext}>
-          Next
-          </Button>
+        </div>
       </div >
     );
   }

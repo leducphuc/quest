@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Panel, ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 const CODE_REGEX = /^([0-9]{6})/;
 const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
@@ -74,64 +74,67 @@ class Verify extends Component {
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="code_form">
-        <h2>Verify your verification code</h2>
-        <h5>Please select your selected verification method</h5>
+        <Panel>
 
-        <div className="row">
-          <div className="col-md-4 left">
-            <input
-              type="radio" name="method_radio"
-              value="email"
-              checked={this.state.verifyMethod === 'email'}
-              onChange={this.onChange('verifyMethod')}
-            />Email my alternative email<br /><br />
 
-            <input
-              type="radio" name="method_radio"
-              value="message"
-              checked={this.state.verifyMethod === 'message'}
-              onChange={this.onChange('verifyMethod')}
-            />Text my mobile phone<br /><br />
+          <div className="row col-md-8 col-md-offset-2">
+            <h2>Verify your verification code</h2>
+            <div className="col-md-6 left">
+              <h5><label>Please select your selected verification method</label></h5>
+              
+              <input
+                type="radio" name="method_radio"
+                value="email"
+                checked={this.state.verifyMethod === 'email'}
+                onChange={this.onChange('verifyMethod')}
+              /><label>Email my alternative email</label><br /><br />
 
-            <input
-              type="radio" name="method_radio"
-              value="call"
-              checked={this.state.verifyMethod === 'call'}
-              onChange={this.onChange('verifyMethod')}
-            />Call my mobile phone<br /><br />
+              <input
+                type="radio" name="method_radio"
+                value="message"
+                checked={this.state.verifyMethod === 'message'}
+                onChange={this.onChange('verifyMethod')}
+              /><label>Text my mobile phone</label><br /><br />
 
-            {errorMessage.length >= 0 &&
-              <div className="error_message">
-                {errorMessage.map((message, index) =>
-                  <li key={index}>
-                    {message}
-                  </li>
-                )}
-              </div>
-            }
-          </div>
-          <div className="col-md-8 right">
-            <Form>
-              <FormGroup controlId="formInlineName" validationState={validate_state} >
-                <ControlLabel>We have sent you a verification code Please enter it below </ControlLabel>{' '}
-                <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} />
-              </FormGroup>
-            </Form><br />
+              <input
+                type="radio" name="method_radio"
+                value="call"
+                checked={this.state.verifyMethod === 'call'}
+                onChange={this.onChange('verifyMethod')}
+              /><label>Call my mobile phone</label><br /><br />
 
-            <p>
-              <ButtonToolbar>
-                <Button bsStyle="primary" onClick={this.onClickNext}>
-                  Next
+              {errorMessage.length >= 0 &&
+                <div className="error_message">
+                  {errorMessage.map((message, index) =>
+                    <li key={index}>
+                      {message}
+                    </li>
+                  )}
+                </div>
+              }
+            </div>
+            <div className="col-md-6">
+              <Form>
+                <FormGroup controlId="formInlineName" validationState={validate_state} >
+                  <ControlLabel>We have sent you a verification code Please enter it below </ControlLabel>{' '}
+                  <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} />
+                </FormGroup>
+              </Form><br />
+
+              <p>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" onClick={this.onClickNext}>
+                    Next
                </Button>
 
-                <Button bsStyle="warning" onClick={this.onClickCancel}>
-                  Cancel
+                  <Button bsStyle="warning" onClick={this.onClickCancel}>
+                    Cancel
                 </Button>
-              </ButtonToolbar>
-            </p>
+                </ButtonToolbar>
+              </p>
+            </div>
           </div>
-        </div>
-
+        </Panel>
       </div>
     );
   }
