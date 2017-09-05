@@ -75,7 +75,7 @@
 			});
 		};
 
-		$('.send_message').click(function (e) {
+		$('#send_message').click(function (e) {
 			sendMessage(getMessageText());
 		});
 		$('.message_input').keyup(function (e) {

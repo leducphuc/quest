@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link href="/css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 </head>
 <body>
     <div class="chat_window">
@@ -16,13 +17,12 @@
             </div>
             <div class="microphone">
                 <button id="start_button" onclick="startButton(event)">
-					<img id="start_img" src="/img/mic.gif" alt="Start">
+					<img id="start_img" src="img/mic.gif" alt="Start">
 				</button>
             </div>
-            <div class="send_message">
-                <div class="icon"></div>
-                <div class="text">Send</div>
-            </div>
+            <button id="send_message" class="waves-effect waves-light btn-floating btn-large">
+                <i class="mdi-content-send"></i>
+            </button>
         </div>
     </div>
     <div class="message_template">
@@ -33,13 +33,15 @@
             </div>
         </li>
     </div>
-    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script type='text/javascript'>
         uid = new Date().getTime();
     </script>
-    <script type="text/javascript" src="/js/responsivevoice.js"></script>
-    <script type="text/javascript" src="/js/voice.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="js/responsivevoice.js"></script>
+    <script type="text/javascript" src="js/voice.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
