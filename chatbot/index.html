@@ -1,6 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
     <div class="chat_window">
         <div class="top_menu">
-            <div class="title">Chat</div>
+            <div class="title">TTX Service Desk Chatbot</div>
         </div>
         <ul class="messages"></ul>
         <div class="bottom_wrapper clearfix">
@@ -9,7 +16,7 @@
             </div>
             <div class="microphone">
                 <button id="start_button" onclick="startButton(event)">
-					<img id="start_img" src="/img/mic.gif" alt="Start">
+					<img id="start_img" src="img/mic.gif" alt="Start">
 				</button>
             </div>
             <div class="send_message">
@@ -26,3 +33,13 @@
             </div>
         </li>
     </div>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type='text/javascript'>
+        uid = new Date().getTime();
+    </script>
+    <script type="text/javascript" src="js/responsivevoice.js"></script>
+    <script type="text/javascript" src="js/voice.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

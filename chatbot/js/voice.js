@@ -24,24 +24,24 @@ Message = function(arg) {
 if (!('webkitSpeechRecognition' in window)) {
 	upgrade();
 } else {
-	$("#start_button").display = 'inline-block';
+	start_button.style.display = 'inline-block';
 	recognition.continuous = true;
 	recognition.interimResults = true;
 
 	recognition.onstart = function() {
 		console.log("Start");
 		recognizing = true;
-		$('#start_img').attr('src', '/img/mic-animate.gif');
+		$('#start_img').attr('src', 'img/mic-animate.gif');
 		tts = false;
 	};
 
 	recognition.onerror = function(event) {
 		console.log("Error");
 		if (event.error == 'no-speech') {
-			$('#start_img').attr('src', '/img/mic.gif');
+			$('#start_img').attr('src', 'img/mic.gif');
 		}
 		if (event.error == 'audio-capture') {
-			$('#start_img').attr('src', '/img/mic.gif');
+			$('#start_img').attr('src', 'img/mic.gif');
 			console.log('info_no_microphone');
 		}
 		if (event.error == 'not-allowed') {
@@ -67,7 +67,7 @@ if (!('webkitSpeechRecognition' in window)) {
 		if (ignore_onend) {
 			return;
 		}
-		$('#start_img').attr('src', '/img/mic.gif');
+		$('#start_img').attr('src', 'img/mic.gif');
 		sendMessage(getMessageText());
 		tts = false
 	};
@@ -99,7 +99,7 @@ function startButton(event) {
 	recognition.lang = "en-GB";
 	recognition.start();
 	ignore_onend = false;
-	$('#start_img').attr('src', '/img/mic-slash.gif');
+	$('#start_img').attr('src', 'img/mic-slash.gif');
 	console.log('info_allow');
 	start_timestamp = event.timeStamp;
 }
@@ -117,7 +117,6 @@ function getMessageText() {
 
 function sendMessage(text) {
 	var $messages, message;
-	const url_prot = "http://10.88.96.158:8084/ttx-help-desk-SNAPSHOT/service/nlu?text=";
 	if (text.trim() === '') {
 		return;
 	}
@@ -132,10 +131,9 @@ function sendMessage(text) {
 		scrollTop : $messages.prop('scrollHeight')
 	}, 300);
 
-	$.get(url_prot + text + "&uid=" + uid, function(data, status) {
-		const mes = data.dialogMessage;
+	$.get("/chat?text=" + text + "&uid=" + uid, function(data, status) {
 		message = new Message({
-			text : mes,
+			text : data,
 			message_side : 'left'
 		});
 		message.draw();
