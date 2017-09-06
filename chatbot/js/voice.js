@@ -4,16 +4,16 @@ var recognizing = false;
 var ignore_onend;
 var start_timestamp;
 var tts = false;
-Message = function(arg) {
+Message = function (arg) {
 	this.text = arg.text, this.message_side = arg.message_side;
-	this.draw = function(_this) {
-		return function() {
+	this.draw = function (_this) {
+		return function () {
 			var $message;
 			$message = $($('.message_template').clone().html());
 			$message.addClass(_this.message_side).find('.text')
-					.html(_this.text);
+				.html(_this.text);
 			$('.messages').append($message);
-			return setTimeout(function() {
+			return setTimeout(function () {
 				return $message.addClass('appeared');
 			}, 0);
 		};
@@ -28,14 +28,14 @@ if (!('webkitSpeechRecognition' in window)) {
 	recognition.continuous = true;
 	recognition.interimResults = true;
 
-	recognition.onstart = function() {
+	recognition.onstart = function () {
 		console.log("Start");
 		recognizing = true;
 		$('#start_img').attr('src', 'img/mic-animate.gif');
 		tts = false;
 	};
 
-	recognition.onerror = function(event) {
+	recognition.onerror = function (event) {
 		console.log("Error");
 		if (event.error == 'no-speech') {
 			$('#start_img').attr('src', 'img/mic.gif');
@@ -55,13 +55,13 @@ if (!('webkitSpeechRecognition' in window)) {
 		recognizing = false;
 		tts = false;
 	};
-	
-	recognition.onspeechend = function() {
+
+	recognition.onspeechend = function () {
 		console.log("onspeechend");
 		recognition.stop();
 	};
-	
-	recognition.onend = function() {
+
+	recognition.onend = function () {
 		console.log("onend");
 		recognizing = false;
 		if (ignore_onend) {
@@ -72,7 +72,7 @@ if (!('webkitSpeechRecognition' in window)) {
 		tts = false
 	};
 
-	recognition.onresult = function(event) {
+	recognition.onresult = function (event) {
 		var final_transcript = '';
 		var interim_transcript = '';
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -124,25 +124,26 @@ function sendMessage(text) {
 	$('.message_input').val('');
 	$messages = $('.messages');
 	message = new Message({
-		text : text,
-		message_side : 'right'
+		text: text,
+		message_side: 'right'
 	});
 	message.draw();
 	$messages.animate({
-		scrollTop : $messages.prop('scrollHeight')
+		scrollTop: $messages.prop('scrollHeight')
 	}, 300);
 
 	$.get(url_prot + text + "&uid=" + uid, function (data, status) {
+		const mes = data.dialogMessage;
 		message = new Message({
-			text : data,
-			message_side : 'left'
+			text: mes,
+			message_side: 'left'
 		});
 		message.draw();
 		$messages.animate({
-			scrollTop : $messages.prop('scrollHeight')
+			scrollTop: $messages.prop('scrollHeight')
 		}, 300);
 
-		if(responsiveVoice.voiceSupport()) {
+		if (responsiveVoice.voiceSupport()) {
 			tts = true;
 			responsiveVoice.speak(data);
 		}

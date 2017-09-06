@@ -59,7 +59,6 @@
 
 			$.get(url_prot + text + "&uid=" + uid, function (data, status) {
 				const mes = data.dialogMessage;
-				console.log(mes);
 				message = new Message({
 					text: mes,
 					message_side: 'left'
