@@ -132,6 +132,10 @@ function sendMessage(text) {
 		scrollTop: $messages.prop('scrollHeight')
 	}, 300);
 
+	if (recognizing) {
+		recognition.stop();
+	}
+
 	$.get(url_prot + text + "&uid=" + uid, function (data, status) {
 		const mes = data.dialogMessage;
 		message = new Message({
