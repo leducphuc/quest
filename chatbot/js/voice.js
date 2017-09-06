@@ -116,6 +116,7 @@ function getMessageText() {
 };
 
 function sendMessage(text) {
+	const url_prot = "https://demo-sg.fsoft-hcm.net/ttx-help-desk-SNAPSHOT/service/nlu?text=";
 	var $messages, message;
 	if (text.trim() === '') {
 		return;
@@ -131,7 +132,7 @@ function sendMessage(text) {
 		scrollTop : $messages.prop('scrollHeight')
 	}, 300);
 
-	$.get("/chat?text=" + text + "&uid=" + uid, function(data, status) {
+	$.get(url_prot + text + "&uid=" + uid, function (data, status) {
 		message = new Message({
 			text : data,
 			message_side : 'left'
