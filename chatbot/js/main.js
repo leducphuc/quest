@@ -32,7 +32,7 @@
 
 	$(function () {
 		var getMessageText, message_side, sendMessage, receiveMessage;
-		const url_prot = "https://demo-sg.fsoft-hcm.net/ttx-help-desk-SNAPSHOT/service/nlu?text=";
+		const url_prot = "http://10.88.96.158:8084/ttx-help-desk-SNAPSHOT/service/nlu?text=";
 
 		message_side = 'right';
 		getMessageText = function () {
