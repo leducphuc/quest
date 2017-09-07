@@ -8,10 +8,15 @@
 <body>
     <div class="chat_window">
         <div class="top_menu">
-            <div class="title">TTX Service Desk</div>
+            <div class="row-fluid user-row">
+                <img src="img/ttx_logo.svg" class="img-responsive">
+            </div>
         </div>
         <ul class="messages"></ul>
         <div class="bottom_wrapper clearfix">
+            <button id="send_message" class="waves-effect waves-light btn-floating btn-large">
+                <i class="mdi-content-send"></i>
+            </button>
             <div class="message_input_wrapper">
                 <input class="message_input" placeholder="Type your message here..." />
             </div>
@@ -20,15 +25,10 @@
 					<img id="start_img" src="img/mic.gif" alt="Start">
 				</button>
             </div>
-            <div class="send_message">
-                <div class="icon"></div>
-                <div class="text">Send</div>
-            </div>
         </div>
     </div>
     <div class="message_template">
         <li class="message">
-            <div class="avatar"></div>
             <div class="text_wrapper">
                 <div class="text"></div>
             </div>
