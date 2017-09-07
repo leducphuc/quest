@@ -17,7 +17,7 @@
 		return this;
 	};
 
-	$(function() {
+	$(function () {
 		var $messages;
 		const greeting = "Hi there. I am the TTX Service Desk Chatbot. I can support you to reset your password or unlock your account. So how may I help you now?";
 		var message = new Message({
@@ -56,10 +56,6 @@
 			$messages.animate({
 				scrollTop: $messages.prop('scrollHeight')
 			}, 300);
-
-			if (responsiveVoice.voiceSupport()) {
-				responsiveVoice.speak(text);
-			}
 
 			$.get(url_prot + text + "&uid=" + uid, function (data, status) {
 				const mes = data.dialogMessage;
