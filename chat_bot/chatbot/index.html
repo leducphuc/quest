@@ -3,7 +3,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="chat_window">
@@ -16,12 +17,12 @@
                 <input class="message_input" placeholder="Type your message here..." />
             </div>
             <div class="microphone">
-                <button id="start_button" onclick="startButton(event)">
+                <button id="start_button">
 					<img id="start_img" src="img/mic.gif" alt="Start">
 				</button>
             </div>
             <button id="send_message" class="waves-effect waves-light btn-floating btn-large">
-                <i class="mdi-content-send"></i>
+                <i class="glyphicon glyphicon-send"></i>
             </button>
         </div>
     </div>
@@ -33,15 +34,10 @@
             </div>
         </li>
     </div>
-
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script type='text/javascript'>
         uid = new Date().getTime();
     </script>
     <script type="text/javascript" src="js/responsivevoice.js"></script>
-    <script type="text/javascript" src="js/voice.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

@@ -87,6 +87,8 @@ if (!('webkitSpeechRecognition' in window)) {
 			$('.message_input').val(final_transcript);
 			sendMessage(getMessageText());
 		}
+		console.log(111111111111111);
+		console.log(interim_transcript);
 	};
 }
 
