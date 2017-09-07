@@ -136,6 +136,10 @@ function sendMessage(text) {
 		recognition.stop();
 	}
 
+	if (responsiveVoice.voiceSupport()) {
+		responsiveVoice.speak(text);
+	}
+
 	$.get(url_prot + text + "&uid=" + uid, function (data, status) {
 		const mes = data.dialogMessage;
 		message = new Message({
