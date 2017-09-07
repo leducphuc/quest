@@ -46,7 +46,7 @@
 			if (text.trim() === '') {
 				return;
 			}
-			var sent_text = text.replace(/[_+-,!#$%^&*();\/|<>"']/g, '');
+			var sent_text = text.replace(/[_+-,!#$%^&*();\/|:\\<>"']/g, '');
 			$('.message_input').val('');
 			$messages = $('.messages');
 			message = new Message({
