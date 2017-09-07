@@ -46,6 +46,7 @@
 			if (text.trim() === '') {
 				return;
 			}
+			var sent_text = text.replace(/[_+-,!#$%^&*();\/|<>"']/g, '');
 			$('.message_input').val('');
 			$messages = $('.messages');
 			message = new Message({
@@ -57,7 +58,7 @@
 				scrollTop: $messages.prop('scrollHeight')
 			}, 300);
 
-			$.get(url_prot + text + "&uid=" + uid, function (data, status) {
+			$.get(url_prot + sent_text + "&uid=" + uid, function (data, status) {
 				const mes = data.dialogMessage;
 				message = new Message({
 					text: mes,
@@ -74,7 +75,7 @@
 			});
 		};
 
-		$('.send_message').click(function (e) {
+		$('#send_message').click(function (e) {
 			sendMessage(getMessageText());
 		});
 		$('.message_input').keyup(function (e) {

@@ -55,12 +55,10 @@ if (!('webkitSpeechRecognition' in window)) {
 		recognizing = false;
 		tts = false;
 	};
-
 	recognition.onspeechend = function () {
 		console.log("onspeechend");
 		recognition.stop();
 	};
-
 	recognition.onend = function () {
 		console.log("onend");
 		recognizing = false;
@@ -95,7 +93,6 @@ function startButton(event) {
 		recognition.stop();
 		return;
 	}
-
 	recognition.lang = "en-GB";
 	recognition.start();
 	ignore_onend = false;
