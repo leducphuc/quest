@@ -3,8 +3,8 @@
 }
 
 body {
-	background-color: #edeff2;
 	font-family: "Calibri", "Roboto", sans-serif;
+	background-color: #F5F5F5;
 }
 
 .chat_window {
@@ -13,20 +13,17 @@ body {
 	max-width: 800px;
 	height: 600px;
 	border-radius: 10px;
-	background-color: #fff;
 	left: 50%;
 	top: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-	background-color: #f8f8f8;
-	overflow: hidden;
+	overflow: auto;
 }
 
 .top_menu {
-	background-color: #fff;
 	width: 100%;
 	padding: 20px 0 15px;
-	box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.04);
 }
 
 .top_menu .buttons {
@@ -67,36 +64,37 @@ body {
 	padding: 20px 10px 0 10px;
 	margin: 0;
 	height: 447px;
-	overflow: scroll;
+	overflow: auto;
+	background-color: rgba(255, 255, 255, 0.75);
 }
 
 .messages .message {
 	clear: both;
-	overflow: hidden;
+	overflow: auto;
 	margin-bottom: 20px;
 	transition: all 0.5s linear;
 	opacity: 0;
 }
 
 .messages .message.left .avatar {
-	background-color: #f5886e;
+	background-color: #c4ceea;
 	float: left;
 }
 
 .messages .message.left .text_wrapper {
-	background-color: #ffe6cb;
+	background-color: #ced0e6;
 	margin-left: 20px;
 }
 
 .messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before
 	{
 	right: 100%;
-	border-right-color: #ffe6cb;
+	border-right-color: #ced0e6;
 }
 
-.messages .message.left .text {
+/*.messages .message.left .text {
 	color: #c48843;
-}
+}*/
 
 .messages .message.right .avatar {
 	background-color: #fdbf68;
@@ -104,7 +102,7 @@ body {
 }
 
 .messages .message.right .text_wrapper {
-	background-color: #c7eafc;
+	background-color: #e3eff5;
 	margin-right: 20px;
 	float: right;
 }
@@ -112,7 +110,7 @@ body {
 .messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before
 	{
 	left: 100%;
-	border-left-color: #c7eafc;
+	border-left-color: #e3eff5;
 }
 
 .messages .message.right .text {
@@ -124,8 +122,8 @@ body {
 }
 
 .messages .message .avatar {
-	width: 60px;
-	height: 60px;
+	width: 42px;
+	height: 42px;
 	border-radius: 50%;
 	display: inline-block;
 }
@@ -142,7 +140,6 @@ body {
 .messages .message .text_wrapper::after, .messages .message .text_wrapper:before
 	{
 	top: 18px;
-	border: solid transparent;
 	content: " ";
 	height: 0;
 	width: 0;
@@ -168,7 +165,8 @@ body {
 .bottom_wrapper {
 	position: relative;
 	width: 100%;
-	background-color: #fff;
+	background-color: rgba(0, 0, 0, 0.04);
+	
 	padding: 20px 20px;
 	position: absolute;
 	bottom: 0;
@@ -177,21 +175,33 @@ body {
 .bottom_wrapper .message_input_wrapper {
 	display: inline-block;
 	height: 50px;
-	border-radius: 25px;
-	border: 1px solid #bcbdc0;
-	width: calc(100% - 200px);
+	width: calc(112% - 201px);
 	position: relative;
 	padding: 0 20px;
 }
 
 .bottom_wrapper .message_input_wrapper .message_input {
-	border: none;
+	/* border: none;
 	height: 100%;
 	box-sizing: border-box;
 	width: calc(100% - 40px);
 	position: absolute;
 	outline-width: 0;
-	color: gray;
+	color: gray; */
+	
+	background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    border-radius: 0;
+    outline: none;
+    height: 3rem;
+    width: 100%;
+    margin: 0 0 15px 0;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+    transition: all .3s;
+	/*color: #FFFFFF;*/
 }
 
 .bottom_wrapper .send_message {
@@ -235,4 +245,59 @@ body {
 	border: 0;
 	background-color: transparent;
 	padding: 0;
+}
+
+.btn-floating.btn-large {
+    width: 55.5px;
+    height: 55.5px;
+}
+
+button.btn-floating {
+    border: none;
+}
+
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    will-change: opacity, transform;
+    transition: all .3s ease-out;
+}
+
+.btn-large {
+    line-height: 56px;
+}
+
+.btn-floating {
+    color: #fff;
+    padding: 0;
+    background-color: #26a69a;
+    border-radius: 50%;
+}
+
+.btn, .btn-large {
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: .5px;
+}
+
+.mdi-content-send:before {
+    content: "\e71c";
+}
+
+/*::-webkit-input-placeholder {
+    color: #FFFFFF;
+    opacity: 0.6;
+}*/
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
 }
