@@ -11,7 +11,7 @@ body {
 	position: absolute;
 	width: calc(100% - 20px);
 	max-width: 800px;
-	min-height: 800px;
+	height: 80%;
 	border-radius: 10px;
 	left: 50%;
 	top: 50%;
@@ -64,7 +64,7 @@ body {
 	list-style: none;
 	padding: 20px 10px 0 10px;
 	margin: 0;
-	height: 447px;
+	height: 100%;
 	overflow: auto;
 	background-color: rgba(255, 255, 255, 0.75);
 }
