@@ -20,7 +20,7 @@
 	$(function () {
 		var $messages;
 		const greeting = "Hi there. I am the TTX Service Desk Chatbot.\
-		I can support you to reset your password or unlock your account. So how may I help you now";
+		I can support you to reset your password or unlock your account. So how may I help you now?";
 		var message = new Message({
 			text: greeting,
 			message_side: 'left'
