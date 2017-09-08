@@ -173,9 +173,10 @@
 				}
 				if (isVoice) {
 					tts = false;
-					if (recognizing) {
-						recognition.stop();
-					}
+				}
+
+				if (recognizing) {
+					recognition.stop();
 				}
 			});
 		};
