@@ -49,7 +49,7 @@ class App extends Component {
               </Navbar.Header>
             </Navbar>
           </div>
-          <div clasName="body">
+          <div className="body">
             <Panel>
               <h3> Get back into your account </h3>
             </Panel>

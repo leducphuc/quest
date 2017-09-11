@@ -3,6 +3,7 @@ import {
   Panel, Button, Modal, FormGroup, FormControl, ControlLabel, Form,
   ButtonToolbar
 } from 'react-bootstrap';
+import { LOWERS, NUMBERS, UPPERS, SPECIAL_CHARACTERS} from '../constant';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -10,8 +11,12 @@ class ResetPassword extends Component {
     this.onClickFinish = this.onClickFinish.bind(this);
     this.passwordValidate = this.passwordValidate.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.state = {
       password: '',
+      showPasswordConfirm: false,
+      showErrorMessage: false,
       confirmPassword: '',
       errorMessage: [],
       success: false,
@@ -19,18 +24,45 @@ class ResetPassword extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.password !== nextState.password ||
-      this.state.confirmPassword !== nextState.confirmPassword) {
-      this.setState({ errorMessage: [] });
+    if (this.state.errorMessage.length !== 0 && nextState.errorMessage.length === 0 && !this.state.showPasswordConfirm) {
+      this.setState({ showPasswordConfirm: true });
+    } else if (this.state.errorMessage.length === 0 && nextState.errorMessage.length !== 0 && this.state.showPasswordConfirm && this.state.password !== nextState.password) {
+      this.setState({ showPasswordConfirm: false });
     }
   }
 
+  onChange(field) {
+    return event => {
+      const value = event.target ? event.target.value.trim() : event;
+      const error = this.passwordValidate(field, value);
+      this.setState({
+        [field]: value,
+        errorMessage: error,
+      }, () => { this.state.errorMessage });
+    };
+  }
+
+  onBlur(evt) {
+    const field = evt.target.id;
+    const value = evt.target.value;
+    const error = this.passwordValidate(field, value);
+    this.setState({
+      errorMessage: error,
+    }, () => { this.state.errorMessage });
+  }
+
   onClickFinish() {
-    const message = this.passwordValidate();
-    if (message.length !== 0) {
-      this.setState({ errorMessage: message }, () => { console.log(message); });
+    const { password, confirmPassword, errorMessage, showPasswordConfirm } = this.state;
+    if (!showPasswordConfirm) {
+      const error = this.passwordValidate('password', password);
+      this.setState({ errorMessage: error });
     } else {
-      this.setState({ success: true });
+      if (confirmPassword === '') {
+        const error = this.passwordValidate('confirmPassword', password);
+        this.setState({ errorMessage: error });
+      } else if (errorMessage.length === 0) {
+        this.setState({ success: true });
+      }
     }
   }
 
@@ -39,25 +71,54 @@ class ResetPassword extends Component {
       password: '',
       confirmPassword: '',
       errorMessage: [],
+      showPasswordConfirm: false,
+      success: false,
     });
   }
 
-  passwordValidate() {
-    const { password, confirmPassword } = this.state;
+  passwordValidate(field, value) {
     const message = [];
+    var field_name = field === "password" ? "Password" : "Password Confirm";
 
-    if (password.length === 0) {
-      message.push('password con not leave blank');
-    } else if (password.length < 8) {
-      message.push('password should not shorter than 8 character');
-    } else if (confirmPassword !== password) {
-      message.push('password confirm not match password');
+    if (value.length === 0) {
+      message.push('This field is required!');
+    } else if (field === "password") {
+      // message.push('The password does not conform to the account password policy:');
+      if (value.length < 6) {
+        message.push('It must contain at least 6 characters');
+        message.push('It must contain an upper case character, a special character and a digit');
+      } else {
+        var missing = '';
+        const head = 'It must contain';
+        if (!NUMBERS.test(value)) {
+          missing = missing + ' a number';
+        }
+        if (!UPPERS.test(value)) {
+          missing = missing + ' an upper case character';
+        }
+        if (!LOWERS.test(value)) {
+          missing = missing + ' an lower case character';
+        }
+        if (!SPECIAL_CHARACTERS.test(value)) {
+          missing = missing + ' an special character';
+        }
+        if (missing !== '') {
+          message.push(head+missing);
+        }
+      }
+      if (message.length > 0) {
+        message.unshift('The password does not conform to the account password policy:');
+      }
+    } else if(field === 'confirmPassword') {
+      if (value !== this.state.password) {
+        message.push('Passwords Do not match')
+      }
     }
     return message;
   }
 
   render() {
-    const { errorMessage, success, password, confirmPassword } = this.state;
+    const { errorMessage, success, password, confirmPassword, showPasswordConfirm, showErrorMessage } = this.state;
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
@@ -83,18 +144,22 @@ class ResetPassword extends Component {
                 </div>
               }
 
-
               <Form>
                 <FormGroup validationState={validate_state} >
                   <FormControl
+                    id="password"
                     type="password" value={password} placeholder="Password"
-                    onChange={(event) => this.setState({ password: event.target.value.trim() })}
+                    onChange={this.onChange("password")}
+                    onBlur={this.onBlur}
                   />
 
-                  <FormControl
-                    type="password" value={confirmPassword} placeholder="Password Confirmation"
-                    onChange={(event) => this.setState({ confirmPassword: event.target.value.trim() })}
-                  />
+                  {showPasswordConfirm &&
+                    <FormControl
+                      id="confirmPassword"
+                      type="password" value={confirmPassword} placeholder="Password Confirmation"
+                      onChange={this.onChange("confirmPassword")}
+                      onBlur={this.onBlur}
+                    />}
                 </FormGroup>
               </Form>
 
