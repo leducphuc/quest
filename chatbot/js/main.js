@@ -1,23 +1,24 @@
 (function () {
 	var Message;
+	var final = '',
 
-	//message
-	Message = function (arg) {
-		this.text = arg.text, this.message_side = arg.message_side;
-		this.draw = function (_this) {
-			return function () {
-				var $message;
-				$message = $($('.message_template').clone().html());
-				$message.addClass(_this.message_side).find('.text').html(
-					_this.text);
-				$('.messages').append($message);
-				return setTimeout(function () {
-					return $message.addClass('appeared');
-				}, 0);
-			};
-		}(this);
-		return this;
-	};
+		//message
+		Message = function (arg) {
+			this.text = arg.text, this.message_side = arg.message_side;
+			this.draw = function (_this) {
+				return function () {
+					var $message;
+					$message = $($('.message_template').clone().html());
+					$message.addClass(_this.message_side).find('.text').html(
+						_this.text);
+					$('.messages').append($message);
+					return setTimeout(function () {
+						return $message.addClass('appeared');
+					}, 0);
+				};
+			}(this);
+			return this;
+		};
 
 	// greeting message and voice
 	$(function () {
@@ -89,7 +90,9 @@
 					return;
 				}
 				$('#start_img').attr('src', 'img/mic.gif');
-				sendMessage(getMessageText(), true);
+				if (final !== '') {
+					sendMessage(getMessageText(), true);
+				}
 				tts = false
 			};
 
@@ -106,6 +109,7 @@
 				}
 				if (final_transcript && tts == false) {
 					console.log("Final: " + final_transcript);
+					final = final_transcript;
 					$('.message_input').val(final_transcript);
 					sendMessage(getMessageText());
 				} else if (interim_transcript) {
@@ -183,7 +187,7 @@
 				if (recognizing) {
 					recognition.stop();
 				}
-			}).fail( function() {
+			}).fail(function () {
 				alert('Fetching Error');
 			});
 
