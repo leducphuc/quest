@@ -209,6 +209,9 @@
 				return;
 			}
 
+			if (responsiveVoice.isPlaying()) {
+				responsiveVoice.cancel();
+			}
 			recognition.lang = "en-GB";
 			recognition.start();
 			ignore_onend = false;
