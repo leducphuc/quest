@@ -72,38 +72,33 @@ class Email extends Component {
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="email_form">
-        <div className="row vertical-offset-100">
-          <div className="col-md-4 col-md-offset-4">
-            <Panel className="panel-default">
-              <h2> Who are you ? </h2>
-              <h5> To recover your account, begin entering your user ID and the captcha </h5>
-              <div className="panel-body">
-                <Form>
-                  <FormGroup validationState={validate_state} >
-                    <FormControl placeholder="User ID" type="text" value={email} maxLength="128" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
-                  </FormGroup>
-                </Form>
-                {errorMessage.length >= 0 &&
-                  <div className="error_message">
-                    {errorMessage.map((message, index) =>
-                      <li key={index}>
-                        {message}
-                      </li>
-                    )}
-                  </div>
-                }
-                <Recaptcha
-                  sitekey="6Le-hy0UAAAAAKSlnMYNxzjOjSC_TxJOUCUi_TmB"
-                  render="explicit"
-                  verifyCallback={this.verifyCallback}
-                  onloadCallback={this.onloadCallback}
-                />
-                <Button className="btn btn-lg btn-success btn-block" onClick={this.onClickNext}>
-                  Next >>
+
+        <h2> Who are you ? </h2>
+        <h5> To recover your account, begin entering your user ID and the captcha </h5>
+        <div className="panel-body">
+          <Form>
+            <FormGroup validationState={validate_state} >
+              <FormControl placeholder="User ID" type="text" value={email} maxLength="128" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
+            </FormGroup>
+          </Form>
+          {errorMessage.length >= 0 &&
+            <div className="error_message">
+              {errorMessage.map((message, index) =>
+                <li key={index}>
+                  {message}
+                </li>
+              )}
+            </div>
+          }
+          <Recaptcha
+            sitekey="6Le-hy0UAAAAAKSlnMYNxzjOjSC_TxJOUCUi_TmB"
+            render="explicit"
+            verifyCallback={this.verifyCallback}
+            onloadCallback={this.onloadCallback}
+          />
+          <Button className="btn btn-success btn-block" onClick={this.onClickNext}>
+            Next >>
                  </Button>
-              </div>
-            </Panel>
-          </div>
         </div>
       </div >
     );

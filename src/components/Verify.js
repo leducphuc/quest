@@ -78,7 +78,7 @@ class Verify extends Component {
         <Panel>
 
 
-          <div className="row col-md-8 col-md-offset-2">
+          <div className="row col-md-8">
             <h2>Verify your verification code</h2>
             <div className="col-md-6 left">
               <h5><label>Please select your selected verification method</label></h5>

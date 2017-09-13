@@ -13,7 +13,7 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 0,
+      phase: 1,
       isFetching: false,
       email: '',
     };
@@ -39,26 +39,25 @@ class App extends Component {
       <div className="App" >
         <Grid>
           <div className="header">
-            <Navbar>
-              <Navbar.Header>
-                <Navbar.Brand>
-                  <div className="row-fluid user-row">
-                    <img src={logo} style={{ width: 100, marginTop: -7 }} />
-                  </div>
-                </Navbar.Brand>
-              </Navbar.Header>
-            </Navbar>
+            <Panel className="panel-default">
+
+              <div className="row-fluid user-row">
+                <img src={logo} style={{ width: 100, marginTop: -7 }} />
+              </div>
+            </Panel>
           </div>
           <div className="body">
-            <Panel>
-              <h3> Get back into your account </h3>
-            </Panel>
             {phase === 0 &&
-              <Email
-                increasePhase={this.increasePhase}
-                fetchApi={this.fetchApi}
-                setEmail={this.setEmail}
-              />}
+              <div className="col-md-6">
+                <Panel className="panel-default">
+                  <h3> Get back into your account </h3>
+                  <Email
+                    increasePhase={this.increasePhase}
+                    fetchApi={this.fetchApi}
+                    setEmail={this.setEmail}
+                  />
+                </Panel>
+              </div>}
             {phase === 1 &&
               <Verify
                 increasePhase={this.increasePhase}
