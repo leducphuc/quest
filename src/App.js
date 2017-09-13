@@ -69,6 +69,7 @@ class App extends Component {
               <ResetPassword
                 increasePhase={this.increasePhase}
                 email={this.state.email}
+                fetchApi={this.fetchApi}
               />}
           </div>
         </Grid>

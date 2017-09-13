@@ -19,14 +19,15 @@ class Verify extends Component {
   }
 
   onClickNext() {
-    const { verifiedCode, verifyMethod } = this.state;
+    const { verifiedCode, verifyMethod, code } = this.state;
     const message = this.codeValidate();
     if (message.length !== 0) {
       this.setState({ errorMessage: message }, () => { console.log(message); });
     } else {
-      const response = this.props.fetchApi(`${url_api}${this.props.email}&method=${verifyMethod}&code=${verifiedCode}`, { method: 'GET' });
+      const response = this.props.fetchApi(`${url_api}${this.props.email}&method=${verifyMethod}&code=${code}`, { method: 'GET' });
       response.then((res) => {
-        if (res.status === 'true') {
+        console.log(res);
+        if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
           this.setState({ errorMessage: ['Wrong code'] });
@@ -84,22 +85,22 @@ class Verify extends Component {
               
               <input
                 type="radio" name="method_radio"
-                value="email"
-                checked={this.state.verifyMethod === 'email'}
+                value="MAIL"
+                checked={this.state.verifyMethod === 'MAIL'}
                 onChange={this.onChange('verifyMethod')}
               /><label>Email my alternative email</label><br /><br />
 
               <input
                 type="radio" name="method_radio"
-                value="message"
-                checked={this.state.verifyMethod === 'message'}
+                value="MAIL"
+                checked={this.state.verifyMethod === 'MESSAGE'}
                 onChange={this.onChange('verifyMethod')}
               /><label>Text my mobile phone</label><br /><br />
 
               <input
                 type="radio" name="method_radio"
-                value="call"
-                checked={this.state.verifyMethod === 'call'}
+                value="CALL"
+                checked={this.state.verifyMethod === 'CALL'}
                 onChange={this.onChange('verifyMethod')}
               /><label>Call my mobile phone</label><br /><br />
 

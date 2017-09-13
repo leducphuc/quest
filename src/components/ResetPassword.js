@@ -65,11 +65,11 @@ class ResetPassword extends Component {
 
         const response = this.props.fetchApi(`${url_api}${this.props.email}&newPassword=${password}`, { method: 'GET' });
         response.then((res) => {
-          if (res) {
+          if (res.status === 'SUCCESS') {
             // this.props.increasePhase();
             this.setState({ success: true });
           } else {
-            this.setState({ errorMessage: ['Wrong code'] });
+            this.setState({ errorMessage: ['Network error'] });
           }
         });
       }
@@ -201,6 +201,7 @@ class ResetPassword extends Component {
 ResetPassword.propTypes = {
   increasePhase: PropTypes.func,
   email: PropTypes.string,
+  fetchApi: PropTypes.func,
 };
 
 export default ResetPassword;
