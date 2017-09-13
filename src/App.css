@@ -1,3 +1,7 @@
+body {
+  background-color: #f5f5f5;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;

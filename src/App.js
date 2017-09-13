@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Grid, Panel } from 'react-bootstrap';
 import './App.css';
-import logo from './logo.svg';
+import logo from './image/ttx_logo.svg';
 import Email from './components/Email';
 import Verify from './components/Verify';
 import ResetPassword from './components/ResetPassword';
@@ -42,9 +42,9 @@ class App extends Component {
             <Navbar>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href="#">TTX
+                  <div className="row-fluid user-row">
                     <img src={logo} style={{ width: 100, marginTop: -7 }} />
-                  </a>
+                  </div>
                 </Navbar.Brand>
               </Navbar.Header>
             </Navbar>
