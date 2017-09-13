@@ -29,8 +29,8 @@ class App extends Component {
 
   fetchApi(url, request) {
     return fetch(url, request).then((response) => {
-      return response.ok;
-    });
+      return response.json();
+    }).catch((error) => console.error(error));
   }
 
   render() {

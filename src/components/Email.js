@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
 import { Button, FormGroup, FormControl, ControlLabel, Form, Panel } from 'react-bootstrap';
+import { url_api } from '../constant';
 
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/checkUser?userId=';
+const EMAIL_REGEX = /^[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 class Email extends Component {
   constructor(props) {
     super(props);
@@ -35,12 +35,13 @@ class Email extends Component {
       this.setState({ errorMessage: message }, () => { console.log(message); });
     } else if (verifiedCaptcha) {
       console.log(this.state.email);
-      const response = this.props.fetchApi(`${url_api}${this.state.email} `, { method: 'GET' });
+      const response = this.props.fetchApi(`${url_api}/checkUser?userId=${this.state.email}`,
+        { method: 'GET' });
       response.then((res) => {
-        if (res) {
-          console.log(res);
+        if (res.status === 'true') {
           this.props.setEmail(this.state.email);
           this.props.increasePhase();
+        } else {
           this.setState({ errorMessage: ['Email Not Exitsed'] });
         }
       }).catch((error) => console.log(error));

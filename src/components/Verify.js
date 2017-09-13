@@ -26,7 +26,7 @@ class Verify extends Component {
     } else {
       const response = this.props.fetchApi(`${url_api}${this.props.email}&method=${verifyMethod}&code=${verifiedCode}`, { method: 'GET' });
       response.then((res) => {
-        if (res) {
+        if (res.status === 'true') {
           this.props.increasePhase();
         } else {
           this.setState({ errorMessage: ['Wrong code'] });
