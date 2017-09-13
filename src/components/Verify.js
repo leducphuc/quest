@@ -92,7 +92,7 @@ class Verify extends Component {
 
               <input
                 type="radio" name="method_radio"
-                value="MAIL"
+                value="MESSAGE"
                 checked={this.state.verifyMethod === 'MESSAGE'}
                 onChange={this.onChange('verifyMethod')}
               /><label>Text my mobile phone</label><br /><br />
