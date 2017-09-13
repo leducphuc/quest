@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Panel, ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { url_api } from '../constant';
 
 const CODE_REGEX = /^([0-9]{6})/;
-const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/verifyCode?userId=';
 class Verify extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +18,21 @@ class Verify extends Component {
     };
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.error.length < nextProps.error.length) {
+      this.setState({ errorMessage: [nextProps.error] });
+    }
+  }
+
   onClickNext() {
-    const { verifiedCode, verifyMethod, code } = this.state;
+    const { verifyMethod, code } = this.state;
+    const { email } = this.props;
     const message = this.codeValidate();
     if (message.length !== 0) {
-      this.setState({ errorMessage: message }, () => { console.log(message); });
+      this.setState({ errorMessage: message });
     } else {
-      const response = this.props.fetchApi(`${url_api}${this.props.email}&method=${verifyMethod}&code=${code}`, { method: 'GET' });
+      const url = `${url_api}/verifyCode?userId=${email}&method=${verifyMethod}&code=${code}`;
+      const response = this.props.fetchApi(url);
       response.then((res) => {
         console.log(res);
         if (res.result === 'SUCCESS') {
@@ -75,67 +83,66 @@ class Verify extends Component {
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="code_form">
-        <Panel>
-
-
-          <div className="row col-md-8">
+        <div className="row">
+          <div className="page-title">
             <h2>Verify your verification code</h2>
-            <div className="col-md-6 left">
-              <h5><label>Please select your selected verification method</label></h5>
-              
-              <input
-                type="radio" name="method_radio"
-                value="MAIL"
-                checked={this.state.verifyMethod === 'MAIL'}
-                onChange={this.onChange('verifyMethod')}
-              /><label>Email my alternative email</label><br /><br />
+          </div>
+          <div className="col-md-5 left">
+            <h5><label>Please select your selected verification method</label></h5>
 
-              <input
-                type="radio" name="method_radio"
-                value="MESSAGE"
-                checked={this.state.verifyMethod === 'MESSAGE'}
-                onChange={this.onChange('verifyMethod')}
-              /><label>Text my mobile phone</label><br /><br />
+            <input
+              type="radio" name="method_radio"
+              value="MAIL"
+              checked={this.state.verifyMethod === 'MAIL'}
+              onChange={this.onChange('verifyMethod')}
+            /><label>Email my alternative email</label><br /><br />
 
-              <input
-                type="radio" name="method_radio"
-                value="CALL"
-                checked={this.state.verifyMethod === 'CALL'}
-                onChange={this.onChange('verifyMethod')}
-              /><label>Call my mobile phone</label><br /><br />
+            <input
+              type="radio" name="method_radio"
+              value="SMS"
+              checked={this.state.verifyMethod === 'SMS'}
+              onChange={this.onChange('verifyMethod')}
+            /><label>Text my mobile phone</label><br /><br />
 
-              {errorMessage.length >= 0 &&
-                <div className="error_message">
-                  {errorMessage.map((message, index) =>
-                    <li key={index}>
-                      {message}
-                    </li>
-                  )}
-                </div>
-              }
-            </div>
-            <div className="col-md-6">
-              <Form>
-                <FormGroup controlId="formInlineName" validationState={validate_state} >
-                  <ControlLabel>We have sent you a verification code Please enter it below </ControlLabel>{' '}
-                  <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} />
-                </FormGroup>
-              </Form><br />
+            <input
+              type="radio" name="method_radio"
+              value="CALL"
+              checked={this.state.verifyMethod === 'CALL'}
+              onChange={this.onChange('verifyMethod')}
+            /><label>Call my mobile phone</label><br /><br />
 
-              <p>
-                <ButtonToolbar>
-                  <Button bsStyle="primary" onClick={this.onClickNext}>
-                    Next
+            {errorMessage.length >= 0 &&
+              <div className="error_message">
+                {errorMessage.map((message, index) =>
+                  <li key={index}>
+                    {message}
+                  </li>
+                )}
+              </div>
+            }
+          </div>
+          <div className="col-md-6 code-input">
+            <Form>
+              <FormGroup controlId="formInlineName" validationState={validate_state} >
+                <ControlLabel>
+                  We have sent you a verification code Please enter it below </ControlLabel>{' '}
+                <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} />
+              </FormGroup>
+            </Form><br />
+
+            <p>
+              <ButtonToolbar>
+                <Button bsStyle="primary" onClick={this.onClickNext}>
+                  Next
                </Button>
 
-                  <Button bsStyle="warning" onClick={this.onClickCancel}>
-                    Cancel
+                <Button bsStyle="warning" onClick={this.onClickCancel}>
+                  Cancel
                 </Button>
-                </ButtonToolbar>
-              </p>
-            </div>
+              </ButtonToolbar>
+            </p>
           </div>
-        </Panel>
+        </div>
       </div>
     );
   }
@@ -145,6 +152,7 @@ Verify.propTypes = {
   increasePhase: PropTypes.func,
   email: PropTypes.string,
   fetchApi: PropTypes.func,
+  error: PropTypes.string,
 };
 
 export default Verify;

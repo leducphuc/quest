@@ -18,6 +18,28 @@ body {
   font-size: large;
 }
 
+.btn-email {
+  margin-top: 50px;
+}
+
+.web-title {
+  width: fit-content;
+}
+
+/* .panel-body {
+  width: fit-content;
+} */
+
+.code-input {
+  border-left: solid;
+  border-left-width: 1px;
+  border-left-color: #695454;
+}
+
+.page-title {
+  margin-bottom: 20px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

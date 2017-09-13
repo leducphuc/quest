@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  Panel, Button, Modal, FormGroup, FormControl, ControlLabel, Form,
-  ButtonToolbar
+  Button, Modal, FormGroup, FormControl, Form, ButtonToolbar,
 } from 'react-bootstrap';
 import { LOWERS, NUMBERS, UPPERS, SPECIAL_CHARACTERS } from '../constant';
+
 const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/reset?userId=';
 
 class ResetPassword extends Component {
@@ -25,10 +25,16 @@ class ResetPassword extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.errorMessage.length !== 0 && nextState.errorMessage.length === 0 && !this.state.showPasswordConfirm) {
+    if (this.state.errorMessage.length !== 0 &&
+      nextState.errorMessage.length === 0 && !this.state.showPasswordConfirm) {
       this.setState({ showPasswordConfirm: true });
-    } else if (this.state.errorMessage.length === 0 && nextState.errorMessage.length !== 0 && this.state.showPasswordConfirm && this.state.password !== nextState.password) {
+    } else if (this.state.errorMessage.length === 0 &&
+      nextState.errorMessage.length !== 0 && this.state.showPasswordConfirm &&
+      this.state.password !== nextState.password) {
       this.setState({ showPasswordConfirm: false });
+    }
+    if (this.props.error.length < nextProps.error.length) {
+      this.setState({ errorMessage: [nextProps.error] });
     }
   }
 
@@ -39,7 +45,7 @@ class ResetPassword extends Component {
       this.setState({
         [field]: value,
         errorMessage: error,
-      }, () => { this.state.errorMessage });
+      });
     };
   }
 
@@ -49,7 +55,7 @@ class ResetPassword extends Component {
     const error = this.passwordValidate(field, value);
     this.setState({
       errorMessage: error,
-    }, () => { this.state.errorMessage });
+    });
   }
 
   onClickFinish() {
@@ -62,7 +68,6 @@ class ResetPassword extends Component {
         const error = this.passwordValidate('confirmPassword', password);
         this.setState({ errorMessage: error });
       } else if (errorMessage.length === 0) {
-
         const response = this.props.fetchApi(`${url_api}${this.props.email}&newPassword=${password}`, { method: 'GET' });
         response.then((res) => {
           if (res.status === 'SUCCESS') {
@@ -91,7 +96,7 @@ class ResetPassword extends Component {
 
     if (value.length === 0) {
       message.push('This field is required!');
-    } else if (field === "password") {
+    } else if (field === 'password') {
       // message.push('The password does not conform to the account password policy:');
       if (value.length < 6) {
         message.push('It must contain at least 6 characters');
@@ -127,71 +132,74 @@ class ResetPassword extends Component {
   }
 
   render() {
-    const { errorMessage, success, password, confirmPassword, showPasswordConfirm, showErrorMessage } = this.state;
+    const { errorMessage, success, password, confirmPassword,
+      showPasswordConfirm } = this.state;
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
-        <div className="row vertical-offset-100">
-          <div className="col-md-4 col-md-offset-4">
-            <Panel className="panel-default">
-              {success &&
-                <div className="static-modal">
-                  <Modal.Dialog>
-                    <Modal.Header>
-                      <Modal.Title>Success</Modal.Title>
-                    </Modal.Header>
+        <div className="col-md-4">
+          {success &&
+            <div className="static-modal">
+              <Modal.Dialog>
+                <Modal.Header>
+                  <Modal.Title>Success</Modal.Title>
+                </Modal.Header>
 
-                    <Modal.Body>
-                      Success! Your password has been updated!
+                <Modal.Body>
+                  Success! Your password has been updated!
       </Modal.Body>
 
-                    <Modal.Footer>
-                      <Button onClick={() => window.location.reload()}>Close</Button>
-                    </Modal.Footer>
+                <Modal.Footer>
+                  <Button onClick={() => window.location.reload()}>Close</Button>
+                </Modal.Footer>
 
-                  </Modal.Dialog>
-                </div>
-              }
+              </Modal.Dialog>
+            </div>
+          }
 
-              <Form>
-                <FormGroup validationState={validate_state} >
-                  <FormControl
-                    id="password"
-                    type="password" value={password} placeholder="Password"
-                    onChange={this.onChange("password")}
-                    onBlur={this.onBlur}
-                  />
+          <Form>
+            <FormGroup validationState={validate_state} >
+              <FormControl
+                id="password"
+                type="password" value={password} placeholder="Password"
+                onChange={this.onChange('password')}
+                onBlur={this.onBlur}
+              />
 
-                  {showPasswordConfirm &&
-                    <FormControl
-                      id="confirmPassword"
-                      type="password" value={confirmPassword} placeholder="Password Confirmation"
-                      onChange={this.onChange("confirmPassword")}
-                      onBlur={this.onBlur}
-                    />}
-                </FormGroup>
-              </Form>
+              {showPasswordConfirm &&
+                <FormControl
+                  id="confirmPassword"
+                  type="password" value={confirmPassword} placeholder="Password Confirmation"
+                  onChange={this.onChange('confirmPassword')}
+                  onBlur={this.onBlur}
+                />}
+            </FormGroup>
+          </Form>
 
-              {errorMessage.length >= 0 &&
-                <div className="error_message">
-                  {errorMessage.map((message, index) =>
-                    <li key={index}>
-                      {message}
-                    </li>
-                  )}
-                </div>
-              }
-              <ButtonToolbar>
-                <Button className="btn btn-lg btn-success btn-block btn-sm rspass" onClick={this.onClickFinish}>
-                  Finish
-        </Button>
+          {errorMessage.length >= 0 &&
+            <div className="error_message">
+              {errorMessage.map((message, index) =>
+                <li key={index}>
+                  {message}
+                </li>
+              )}
+            </div>
+          }
+          <ButtonToolbar>
+            <Button
+              className="btn btn-lg btn-success btn-block btn-sm rspass"
+              onClick={this.onClickFinish}
+            >
+              Finish
+            </Button>
 
-                <Button className="btn btn-lg btn-warning btn-block btn-sm rspass" onClick={this.onClickCancel}>
-                  Cancel
-        </Button>
-              </ButtonToolbar>
-            </Panel>
-          </div>
+            <Button
+              className="btn btn-lg btn-warning btn-block btn-sm rspass"
+              onClick={this.onClickCancel}
+            >
+              Cancel
+            </Button>
+          </ButtonToolbar>
         </div>
       </div>
     );
@@ -202,6 +210,7 @@ ResetPassword.propTypes = {
   increasePhase: PropTypes.func,
   email: PropTypes.string,
   fetchApi: PropTypes.func,
+  error: PropTypes.string,
 };
 
 export default ResetPassword;

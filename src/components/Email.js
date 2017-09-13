@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
-import { Button, FormGroup, FormControl, ControlLabel, Form, Panel } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { url_api } from '../constant';
 
 const EMAIL_REGEX = /^[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
@@ -22,6 +22,9 @@ class Email extends Component {
     if (this.state.email !== nextState.email) {
       this.setState({ errorMessage: [] });
     }
+    if (this.props.error.length < nextProps.error.length) {
+      this.setState({ errorMessage: [nextProps.error] });
+    }
   }
 
   onloadCallback() {
@@ -32,9 +35,8 @@ class Email extends Component {
     const { verifiedCaptcha } = this.state;
     const message = this.emailValidate();
     if (message.length !== 0) {
-      this.setState({ errorMessage: message }, () => { console.log(message); });
+      this.setState({ errorMessage: message });
     } else if (verifiedCaptcha) {
-      console.log(this.state.email);
       const response = this.props.fetchApi(`${url_api}/checkUser?userId=${this.state.email}`,
         { method: 'GET' });
       response.then((res) => {
@@ -75,10 +77,15 @@ class Email extends Component {
 
         <h2> Who are you ? </h2>
         <h5> To recover your account, begin entering your user ID and the captcha </h5>
-        <div className="panel-body">
+        <div>
           <Form>
             <FormGroup validationState={validate_state} >
-              <FormControl placeholder="User ID" type="text" value={email} maxLength="128" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
+              <FormControl
+                placeholder="User ID"
+                type="text" value={email}
+                maxLength="128"
+                onChange={(event) => this.setState({ email: event.target.value.trim() })}
+              />
             </FormGroup>
           </Form>
           {errorMessage.length >= 0 &&
@@ -96,9 +103,9 @@ class Email extends Component {
             verifyCallback={this.verifyCallback}
             onloadCallback={this.onloadCallback}
           />
-          <Button className="btn btn-success btn-block" onClick={this.onClickNext}>
-            Next >>
-                 </Button>
+          <Button className="btn btn-success btn-block btn-email" onClick={this.onClickNext}>
+            Next
+          </Button>
         </div>
       </div >
     );
@@ -109,6 +116,7 @@ Email.propTypes = {
   increasePhase: PropTypes.func,
   fetchApi: PropTypes.func,
   setEmail: PropTypes.func,
+  error: PropTypes.string,
 };
 
 export default Email;
