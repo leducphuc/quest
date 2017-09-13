@@ -3,7 +3,8 @@ import {
   Panel, Button, Modal, FormGroup, FormControl, ControlLabel, Form,
   ButtonToolbar
 } from 'react-bootstrap';
-import { LOWERS, NUMBERS, UPPERS, SPECIAL_CHARACTERS} from '../constant';
+import { LOWERS, NUMBERS, UPPERS, SPECIAL_CHARACTERS } from '../constant';
+const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/reset?userId=';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -61,7 +62,16 @@ class ResetPassword extends Component {
         const error = this.passwordValidate('confirmPassword', password);
         this.setState({ errorMessage: error });
       } else if (errorMessage.length === 0) {
-        this.setState({ success: true });
+
+        const response = this.props.fetchApi(`${url_api}${this.props.email}&newPassword=${password}`, { method: 'GET' });
+        response.then((res) => {
+          if (res) {
+            // this.props.increasePhase();
+            this.setState({ success: true });
+          } else {
+            this.setState({ errorMessage: ['Wrong code'] });
+          }
+        });
       }
     }
   }
@@ -78,7 +88,6 @@ class ResetPassword extends Component {
 
   passwordValidate(field, value) {
     const message = [];
-    var field_name = field === "password" ? "Password" : "Password Confirm";
 
     if (value.length === 0) {
       message.push('This field is required!');
@@ -88,30 +97,30 @@ class ResetPassword extends Component {
         message.push('It must contain at least 6 characters');
         message.push('It must contain an upper case character, a special character and a digit');
       } else {
-        var missing = '';
+        let missing = '';
         const head = 'It must contain';
         if (!NUMBERS.test(value)) {
-          missing = missing + ' a number';
+          missing += ' a number';
         }
         if (!UPPERS.test(value)) {
-          missing = missing + ' an upper case character';
+          missing += ' an upper case character';
         }
         if (!LOWERS.test(value)) {
-          missing = missing + ' an lower case character';
+          missing += ' an lower case character';
         }
         if (!SPECIAL_CHARACTERS.test(value)) {
-          missing = missing + ' an special character';
+          missing += ' an special character';
         }
         if (missing !== '') {
-          message.push(head+missing);
+          message.push(head + missing);
         }
       }
       if (message.length > 0) {
         message.unshift('The password does not conform to the account password policy:');
       }
-    } else if(field === 'confirmPassword') {
+    } else if (field === 'confirmPassword') {
       if (value !== this.state.password) {
-        message.push('Passwords Do not match')
+        message.push('Passwords Do not match');
       }
     }
     return message;
@@ -191,6 +200,7 @@ class ResetPassword extends Component {
 
 ResetPassword.propTypes = {
   increasePhase: PropTypes.func,
+  email: PropTypes.string,
 };
 
 export default ResetPassword;

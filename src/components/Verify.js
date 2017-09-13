@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Panel, ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 const CODE_REGEX = /^([0-9]{6})/;
-const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
+const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/verifyCode?userId=';
 class Verify extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class Verify extends Component {
     if (message.length !== 0) {
       this.setState({ errorMessage: message }, () => { console.log(message); });
     } else {
-      const response = this.props.fetchApi(`${url_api}/email/hohohaha@gmail.com/method/${this.state.verifyMethod}/code/${this.state.code}`, { method: 'GET' });
+      const response = this.props.fetchApi(`${url_api}${this.props.email}&method=${verifyMethod}&code=${verifiedCode}`, { method: 'GET' });
       response.then((res) => {
         if (res) {
           this.props.increasePhase();

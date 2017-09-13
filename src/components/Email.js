@@ -3,7 +3,7 @@ import Recaptcha from 'react-recaptcha';
 import { Button, FormGroup, FormControl, ControlLabel, Form, Panel } from 'react-bootstrap';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const url_api = 'http://599c96b93a19ba0011949cf6.mockapi.io/api/v1';
+const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/checkUser?userId=';
 class Email extends Component {
   constructor(props) {
     super(props);
@@ -34,15 +34,16 @@ class Email extends Component {
     if (message.length !== 0) {
       this.setState({ errorMessage: message }, () => { console.log(message); });
     } else if (verifiedCaptcha) {
-      const response = this.props.fetchApi(`${url_api}/email/${this.state.email}`, { method: 'GET' });
+      console.log(this.state.email);
+      const response = this.props.fetchApi(`${url_api}${this.state.email} `, { method: 'GET' });
       response.then((res) => {
         if (res) {
+          console.log(res);
           this.props.setEmail(this.state.email);
           this.props.increasePhase();
-        } else {
           this.setState({ errorMessage: ['Email Not Exitsed'] });
         }
-      });
+      }).catch((error) => console.log(error));
     }
   }
 
@@ -78,7 +79,7 @@ class Email extends Component {
               <div className="panel-body">
                 <Form>
                   <FormGroup validationState={validate_state} >
-                    <FormControl placeholder="User ID" type="text" value={email} maxLength="30" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
+                    <FormControl placeholder="User ID" type="text" value={email} maxLength="128" onChange={(event) => this.setState({ email: event.target.value.trim() })} />
                   </FormGroup>
                 </Form>
                 {errorMessage.length >= 0 &&
