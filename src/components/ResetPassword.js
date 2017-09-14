@@ -65,10 +65,13 @@ class ResetPassword extends Component {
       this.setState({ errorMessage: error });
     } else {
       if (confirmPassword === '') {
-        const error = this.passwordValidate('confirmPassword', password);
+        console.log('confirm blank');
+        const error = this.passwordValidate('confirmPassword', confirmPassword);
+        console.log(error);
         this.setState({ errorMessage: error });
       } else if (errorMessage.length === 0) {
-        const response = this.props.fetchApi(`${url_api}${this.props.email}&newPassword=${password}`, { method: 'GET' });
+        const url = `${url_api}${this.props.email}&newPassword=${password}`;
+        const response = this.props.fetchApi(url, { method: 'GET' });
         response.then((res) => {
           if (res.status === 'SUCCESS') {
             // this.props.increasePhase();
@@ -93,8 +96,9 @@ class ResetPassword extends Component {
 
   passwordValidate(field, value) {
     const message = [];
-
+    console.log('value', value);
     if (value.length === 0) {
+      console.log('require');
       message.push('This field is required!');
     } else if (field === 'password') {
       // message.push('The password does not conform to the account password policy:');
@@ -161,7 +165,7 @@ class ResetPassword extends Component {
             <FormGroup validationState={validate_state} >
               <FormControl
                 id="password"
-                type="password" value={password} placeholder="Password"
+                type="password" value={password} placeholder="Password" maxLength="128"
                 onChange={this.onChange('password')}
                 onBlur={this.onBlur}
               />
@@ -170,6 +174,7 @@ class ResetPassword extends Component {
                 <FormControl
                   id="confirmPassword"
                   type="password" value={confirmPassword} placeholder="Password Confirmation"
+                  maxLength="128"
                   onChange={this.onChange('confirmPassword')}
                   onBlur={this.onBlur}
                 />}

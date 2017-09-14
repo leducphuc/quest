@@ -44,7 +44,7 @@ class Email extends Component {
           this.props.setEmail(this.state.email);
           this.props.increasePhase();
         } else {
-          this.setState({ errorMessage: ['Email Not Exitsed'] });
+          this.setState({ errorMessage: ['UserID Not Exitsed'] });
         }
       }).catch((error) => console.log(error));
     }
@@ -83,7 +83,7 @@ class Email extends Component {
               <FormControl
                 placeholder="User ID"
                 type="text" value={email}
-                maxLength="128"
+                maxLength="30"
                 onChange={(event) => this.setState({ email: event.target.value.trim() })}
               />
             </FormGroup>

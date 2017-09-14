@@ -34,7 +34,6 @@ class Verify extends Component {
       const url = `${url_api}/verifyCode?userId=${email}&method=${verifyMethod}&code=${code}`;
       const response = this.props.fetchApi(url);
       response.then((res) => {
-        console.log(res);
         if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
@@ -68,7 +67,7 @@ class Verify extends Component {
     const message = [];
 
     if (code.length === 0) {
-      message.push('Code con not leave blank');
+      message.push('Code can not leave blank');
     } else if (!CODE_REGEX.test(code)) {
       message.push('Invalid code');
     }
