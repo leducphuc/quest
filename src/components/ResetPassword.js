@@ -5,6 +5,7 @@ import {
 import { LOWERS, NUMBERS, UPPERS, SPECIAL_CHARACTERS } from '../constant';
 
 const url_api = 'http://10.88.96.158:8084/ttx-help-desk-ver2-SNAPSHOT/service/reset?userId=';
+const Loader = require('react-loader');
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -65,9 +66,7 @@ class ResetPassword extends Component {
       this.setState({ errorMessage: error });
     } else {
       if (confirmPassword === '') {
-        console.log('confirm blank');
         const error = this.passwordValidate('confirmPassword', confirmPassword);
-        console.log(error);
         this.setState({ errorMessage: error });
       } else if (errorMessage.length === 0) {
         const url = `${url_api}${this.props.email}&newPassword=${password}`;
@@ -96,9 +95,7 @@ class ResetPassword extends Component {
 
   passwordValidate(field, value) {
     const message = [];
-    console.log('value', value);
     if (value.length === 0) {
-      console.log('require');
       message.push('This field is required!');
     } else if (field === 'password') {
       // message.push('The password does not conform to the account password policy:');
@@ -190,21 +187,23 @@ class ResetPassword extends Component {
               )}
             </div>
           }
-          <ButtonToolbar>
-            <Button
-              className="btn btn-lg btn-success btn-block btn-sm rspass"
-              onClick={this.onClickFinish}
-            >
-              Finish
+          <Loader loaded={this.props.loaded}>
+            <ButtonToolbar>
+              <Button
+                className="btn btn-lg btn-success btn-block btn-sm rspass"
+                onClick={this.onClickFinish}
+              >
+                Finish
             </Button>
 
-            <Button
-              className="btn btn-lg btn-warning btn-block btn-sm rspass"
-              onClick={this.onClickCancel}
-            >
-              Cancel
+              <Button
+                className="btn btn-lg btn-warning btn-block btn-sm rspass"
+                onClick={this.onClickCancel}
+              >
+                Cancel
             </Button>
-          </ButtonToolbar>
+            </ButtonToolbar>
+          </Loader>
         </div>
       </div>
     );
@@ -216,6 +215,7 @@ ResetPassword.propTypes = {
   email: PropTypes.string,
   fetchApi: PropTypes.func,
   error: PropTypes.string,
+  loaded: PropTypes.bool,
 };
 
 export default ResetPassword;

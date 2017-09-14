@@ -3,6 +3,8 @@ import Recaptcha from 'react-recaptcha';
 import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { url_api } from '../constant';
 
+const Loader = require('react-loader');
+
 const EMAIL_REGEX = /^[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 class Email extends Component {
   constructor(props) {
@@ -103,9 +105,11 @@ class Email extends Component {
             verifyCallback={this.verifyCallback}
             onloadCallback={this.onloadCallback}
           />
-          <Button className="btn btn-success btn-block btn-email" onClick={this.onClickNext}>
-            Next
-          </Button>
+          <Loader loaded={this.props.loaded}>
+            <Button className="btn btn-success btn-block btn-email" onClick={this.onClickNext}>
+              Next
+            </Button>
+          </Loader>
         </div>
       </div >
     );
@@ -117,6 +121,7 @@ Email.propTypes = {
   fetchApi: PropTypes.func,
   setEmail: PropTypes.func,
   error: PropTypes.string,
+  loaded: PropTypes.bool,
 };
 
 export default Email;

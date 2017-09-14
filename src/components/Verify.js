@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { url_api } from '../constant';
 
+const Loader = require('react-loader');
+
 const CODE_REGEX = /^([0-9]{6})/;
 class Verify extends Component {
   constructor(props) {
@@ -37,6 +39,7 @@ class Verify extends Component {
         if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
+          console.log('here', res);
           this.setState({ errorMessage: ['Wrong code'] });
         }
       });
@@ -129,17 +132,19 @@ class Verify extends Component {
               </FormGroup>
             </Form><br />
 
-            <p>
-              <ButtonToolbar>
-                <Button bsStyle="primary" onClick={this.onClickNext}>
-                  Next
+            <Loader loaded={this.props.loaded}>
+              <div>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" onClick={this.onClickNext}>
+                    Next
                </Button>
 
-                <Button bsStyle="warning" onClick={this.onClickCancel}>
-                  Cancel
+                  <Button bsStyle="warning" onClick={this.onClickCancel}>
+                    Cancel
                 </Button>
-              </ButtonToolbar>
-            </p>
+                </ButtonToolbar>
+              </div>
+            </Loader>
           </div>
         </div>
       </div>
@@ -152,6 +157,7 @@ Verify.propTypes = {
   email: PropTypes.string,
   fetchApi: PropTypes.func,
   error: PropTypes.string,
+  loaded: PropTypes.bool,
 };
 
 export default Verify;
