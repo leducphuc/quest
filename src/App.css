@@ -1,5 +1,5 @@
 body {
-  background-color: #cccccc;
+  background-color: transparent;
 }
 
 .App-logo {
@@ -19,6 +19,11 @@ body {
 }
 
 .btn-email {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.email-button {
   margin-top: 50px;
 }
 
@@ -56,4 +61,8 @@ body {
 }
 #formInlineName {
   width: 304px;
+}
+
+.email-form {
+  line-height: 30px;
 }

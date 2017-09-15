@@ -13,7 +13,7 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 2,
+      phase: 0,
       isFetching: false,
       email: '',
       loaded: true,
@@ -35,7 +35,6 @@ class App extends Component {
     this.setState({ loaded: false });
     return fetch(url, request).then((response) => {
       this.setState({ loaded: true });
-      console.log(response);
       return response.json();
     }).catch((error) => {
       this.setState({ loaded: true });

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
-import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Form, ButtonToolbar } from 'react-bootstrap';
 import { url_api } from '../constant';
 
 const Loader = require('react-loader');
@@ -13,6 +13,7 @@ class Email extends Component {
     this.emailValidate = this.emailValidate.bind(this);
     this.verifyCallback = this.verifyCallback.bind(this);
     this.onloadCallback = this.onloadCallback.bind(this);
+    this.onClickCancel = this.onClickCancel.bind(this);
     this.state = {
       email: '',
       errorMessage: [],
@@ -50,6 +51,13 @@ class Email extends Component {
         }
       }).catch((error) => console.log(error));
     }
+  }
+
+  onClickCancel() {
+    this.setState({
+      email: '',
+      errorMessage: [],
+    });
   }
 
   emailValidate() {
@@ -90,6 +98,9 @@ class Email extends Component {
               />
             </FormGroup>
           </Form>
+          <div>
+            <span>Example: user@contoso.onmicrosoft.com or user@contoso.com</span>
+          </div>
           {errorMessage.length >= 0 &&
             <div className="error_message">
               {errorMessage.map((message, index) =>
@@ -106,9 +117,16 @@ class Email extends Component {
             onloadCallback={this.onloadCallback}
           />
           <Loader loaded={this.props.loaded}>
-            <Button className="btn btn-success btn-block btn-email" onClick={this.onClickNext}>
-              Next
-            </Button>
+            <div className="email-button">
+              <ButtonToolbar>
+                <Button bsStyle="primary" onClick={this.onClickNext}>
+                  Next
+               </Button>
+                <Button bsStyle="warning" onClick={this.onClickCancel}>
+                  Cancel
+                </Button>
+              </ButtonToolbar>
+            </div>
           </Loader>
         </div>
       </div >
