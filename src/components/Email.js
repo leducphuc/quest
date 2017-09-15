@@ -98,8 +98,8 @@ class Email extends Component {
               />
             </FormGroup>
           </Form>
-          <div>
-            <span>Example: user@contoso.onmicrosoft.com or user@contoso.com</span>
+          <div className="example-email">
+            <h5>Example: user.ttx</h5>
           </div>
           {errorMessage.length >= 0 &&
             <div className="error_message">
@@ -122,9 +122,15 @@ class Email extends Component {
                 <Button bsStyle="primary" onClick={this.onClickNext}>
                   Next
                </Button>
-                <Button bsStyle="warning" onClick={this.onClickCancel}>
-                  Cancel
+                {email.length !== 0 &&
+                  <Button bsStyle="warning" onClick={this.onClickCancel}>
+                    Cancel
                 </Button>
+                }
+                {
+                  email.length === 0 &&
+                  <div className="cancel-text" onClick={this.onClickCancel}>Cancel</div>
+                }
               </ButtonToolbar>
             </div>
           </Loader>

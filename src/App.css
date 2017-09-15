@@ -1,6 +1,9 @@
 body {
   background-color: transparent;
 }
+.App .container{
+  margin-left: 0 !important;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -27,6 +30,21 @@ body {
   margin-top: 50px;
 }
 
+.email-component {
+  padding-left: 0 !important;
+}
+
+
+.btn-toolbar>.btn, .btn-toolbar>.btn-group, .btn-toolbar>.input-group {
+    margin-left: 5px;
+    margin-right: 30px;
+    width: 100px;
+}
+
+.cancel-text {
+    line-height: 38px;
+}
+
 .web-title {
   width: fit-content;
 }
@@ -39,6 +57,33 @@ body {
   border-left: solid;
   border-left-width: 1px;
   border-left-color: #695454;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: normal;
+  letter-spacing: -.01em;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 100px;
+    letter-spacing: -.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-family: "SegoeUI-Light-final","Segoe UI Light","Segoe UI",Segoe,Tahoma,Helvetica,Arial,Sans-Serif;
+    color: #333333;
+    margin: 0 0 0 0;
+    cursor: default;
+}
+
+#headerImage {
+  vertical-align: middle;
+  border: 0;
 }
 
 .page-title {
@@ -64,5 +109,29 @@ body {
 }
 
 .email-form {
-  line-height: 30px;
+  line-height: 50px;
+}
+
+.form-group {
+  margin-bottom: 4px !important;
+}
+
+#root > div > div > div.body > div > div > div.col-md-6.email-component > div > div > form > div > input {
+  width: 76%;
+}
+
+#formInlineName {
+  width: 75%;
+}
+
+.example-email {
+  margin-bottom: 10px;
+}
+
+.code_form .col-md-5.left {
+  padding-left: 0 !important; 
+}
+
+h5 > label {
+  margin-bottom: 20px;
 }

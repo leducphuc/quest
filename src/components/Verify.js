@@ -39,7 +39,7 @@ class Verify extends Component {
         if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
-          this.setState({ errorMessage: ['Wrong code'] });
+          this.setState({ errorMessage: ['wrong_code'] });
         }
       });
     }
@@ -69,67 +69,82 @@ class Verify extends Component {
     const message = [];
 
     if (code.length === 0) {
-      message.push('Code can not leave blank');
+      message.push('code_blank');
     } else if (!CODE_REGEX.test(code) || code.length !== 6) {
-      message.push('Invalid code');
+      message.push('invalid_code');
     }
     if (verifyMethod === '') {
-      message.push('Verify method must be choosed');
+      message.push('verify_method');
     }
     return message;
   }
 
   render() {
     const errorMessage = this.state.errorMessage;
-    const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="code_form">
-        <div className="row">
+        <div clasName="row">
           <div className="page-title">
             <h2>Verify your verification code</h2>
           </div>
           <div className="col-md-5 left">
-            <h5><label>Please select your selected verification method</label></h5>
+            <label>Please select your selected verification method</label><br />
 
             <input
               type="radio" name="method_radio"
               value="MAIL"
               checked={this.state.verifyMethod === 'MAIL'}
               onChange={this.onChange('verifyMethod')}
-            /><label>Email my alternative email</label><br /><br />
+            />Email my alternative email<br /><br />
 
             <input
               type="radio" name="method_radio"
               value="SMS"
               checked={this.state.verifyMethod === 'SMS'}
               onChange={this.onChange('verifyMethod')}
-            /><label>Text my mobile phone</label><br /><br />
+            />Text my mobile phone<br /><br />
 
             <input
               type="radio" name="method_radio"
               value="CALL"
               checked={this.state.verifyMethod === 'CALL'}
               onChange={this.onChange('verifyMethod')}
-            /><label>Call my mobile phone</label><br /><br />
+            />Call my mobile phone<br /><br />
 
-            {errorMessage.length >= 0 &&
+            {errorMessage.indexOf('verify_method') !== -1 &&
               <div className="error_message">
-                {errorMessage.map((message, index) =>
-                  <li key={index}>
-                    {message}
-                  </li>
-                )}
+                <li>Verify method must be choosed</li>
               </div>
             }
           </div>
           <div className="col-md-6 code-input">
             <Form>
-              <FormGroup controlId="formInlineName" validationState={validate_state} >
+              <FormGroup
+                controlId="formInlineName"
+              >
                 <ControlLabel>
                   We have sent you a verification code Please enter it below </ControlLabel>{' '}
                 <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} maxLength={6} />
               </FormGroup>
             </Form><br />
+
+            {errorMessage.indexOf('code_blank') !== -1 &&
+              <div className="error_message">
+                <li>Code can not leave blank</li>
+              </div>
+            }
+
+            {errorMessage.indexOf('invalid_code') !== -1 &&
+              <div className="error_message">
+                <li>Invalid code</li>
+              </div>
+            }
+
+            {errorMessage.indexOf('wrong_code') !== -1 &&
+              <div className="error_message">
+                <li>Wrong code</li>
+              </div>
+            }
 
             <Loader loaded={this.props.loaded}>
               <div>
@@ -138,9 +153,16 @@ class Verify extends Component {
                     Next
                </Button>
 
-                  <Button bsStyle="warning" onClick={this.onClickCancel}>
-                    Cancel
+                  {this.state.code.length !== 0 &&
+                    <Button bsStyle="warning" onClick={this.onClickCancel}>
+                      Cancel
                 </Button>
+                  }
+
+                  {
+                    this.state.code.length === 0 &&
+                    <div className="cancel-text" onClick={this.onClickCancel}>Cancel</div>
+                  }
                 </ButtonToolbar>
               </div>
             </Loader>

