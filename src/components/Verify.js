@@ -39,7 +39,6 @@ class Verify extends Component {
         if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
-          console.log('here', res);
           this.setState({ errorMessage: ['Wrong code'] });
         }
       });
@@ -71,7 +70,7 @@ class Verify extends Component {
 
     if (code.length === 0) {
       message.push('Code can not leave blank');
-    } else if (!CODE_REGEX.test(code)) {
+    } else if (!CODE_REGEX.test(code) || code.length !== 6) {
       message.push('Invalid code');
     }
     if (verifyMethod === '') {
@@ -128,7 +127,7 @@ class Verify extends Component {
               <FormGroup controlId="formInlineName" validationState={validate_state} >
                 <ControlLabel>
                   We have sent you a verification code Please enter it below </ControlLabel>{' '}
-                <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} />
+                <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} maxLength={6} />
               </FormGroup>
             </Form><br />
 
