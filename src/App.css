@@ -43,6 +43,12 @@ body {
 
 .cancel-text {
     line-height: 38px;
+    color: #0072C6;
+}
+
+.cancel-text:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .web-title {
@@ -75,7 +81,6 @@ h2 {
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
-    font-family: "SegoeUI-Light-final","Segoe UI Light","Segoe UI",Segoe,Tahoma,Helvetica,Arial,Sans-Serif;
     color: #333333;
     margin: 0 0 0 0;
     cursor: default;
@@ -134,4 +139,12 @@ h1, h2, h3, h4, h5, h6 {
 
 h5 > label {
   margin-bottom: 20px;
+}
+
+.password_form .cancel-text {
+  line-height: 135px;
+}
+#headerImage {
+  width: 186px;
+  height: 70px !important;
 }

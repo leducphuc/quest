@@ -123,7 +123,7 @@ class Email extends Component {
                   Next
                </Button>
                 {email.length !== 0 &&
-                  <Button bsStyle="warning" onClick={this.onClickCancel}>
+                  <Button bsStyle="default" onClick={this.onClickCancel}>
                     Cancel
                 </Button>
                 }

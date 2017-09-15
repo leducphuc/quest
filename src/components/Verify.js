@@ -153,16 +153,7 @@ class Verify extends Component {
                     Next
                </Button>
 
-                  {this.state.code.length !== 0 &&
-                    <Button bsStyle="warning" onClick={this.onClickCancel}>
-                      Cancel
-                </Button>
-                  }
-
-                  {
-                    this.state.code.length === 0 &&
-                    <div className="cancel-text" onClick={this.onClickCancel}>Cancel</div>
-                  }
+                  <div className="cancel-text" onClick={this.onClickCancel}>Cancel</div>
                 </ButtonToolbar>
               </div>
             </Loader>

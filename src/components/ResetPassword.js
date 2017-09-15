@@ -17,7 +17,7 @@ class ResetPassword extends Component {
     this.onBlur = this.onBlur.bind(this);
     this.state = {
       password: '',
-      showPasswordConfirm: false,
+      showPasswordConfirm: true,
       showErrorMessage: false,
       confirmPassword: '',
       errorMessage: [],
@@ -25,15 +25,7 @@ class ResetPassword extends Component {
     };
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state.errorMessage.length !== 0 &&
-      nextState.errorMessage.length === 0 && !this.state.showPasswordConfirm) {
-      this.setState({ showPasswordConfirm: true });
-    } else if (this.state.errorMessage.length === 0 &&
-      nextState.errorMessage.length !== 0 && this.state.showPasswordConfirm &&
-      this.state.password !== nextState.password) {
-      this.setState({ showPasswordConfirm: false });
-    }
+  componentWillUpdate(nextProps) {
     if (this.props.error.length < nextProps.error.length) {
       this.setState({ errorMessage: [nextProps.error] });
     }
@@ -190,22 +182,23 @@ class ResetPassword extends Component {
           <Loader loaded={this.props.loaded}>
             <ButtonToolbar>
               <Button
-                className="btn btn-lg btn-success btn-block btn-sm rspass"
+                className="btn btn-lg btn-primary btn-sm rspass"
                 onClick={this.onClickFinish}
               >
                 Finish
             </Button>
 
-              <Button
-                className="btn btn-lg btn-warning btn-block btn-sm rspass"
+
+              <div
+                className="cancel-text"
                 onClick={this.onClickCancel}
               >
                 Cancel
-            </Button>
+                </div>
             </ButtonToolbar>
           </Loader>
         </div>
-      </div>
+      </div >
     );
   }
 }

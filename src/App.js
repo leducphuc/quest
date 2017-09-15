@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Grid, Panel } from 'react-bootstrap';
 import './App.css';
-import logo from './image/ttx_logo.svg';
 import Email from './components/Email';
 import Verify from './components/Verify';
 import ResetPassword from './components/ResetPassword';
+import logo from './image/logo-ttx.png';
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +50,9 @@ class App extends Component {
           <div className="header">
             <Panel className="panel-default">
               <div className="row-fluid user-row">
-                <img id="headerImage" title="Microsoft Online Services" className="logo" src="https://secure.aadcdn.microsoftonline-p.com/dbd5a2dd-uvot5qmbqvq5scy8045tpiq7c78fqnhws12fvmqrskc/logintenantbranding/0/bannerlogo?ts=636393060575051196" alt="Microsoft Online Services" />
+                <div className="logo-header">
+                  <img id="headerImage" title="TTX" className="logo" src={logo} alt="TTX" />
+                </div>
               </div>
             </Panel>
           </div>
