@@ -23,6 +23,7 @@ class Email extends Component {
     this.verifyCallback = this.verifyCallback.bind(this);
     this.onloadCallback = this.onloadCallback.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
       email: '',
       errorMessage: [],
@@ -71,6 +72,13 @@ class Email extends Component {
     });
   }
 
+  handleKeyPress(evt) {
+    if (evt.key === 'Enter') {
+      evt.preventDefault();
+      this.onClickNext();
+    }
+  }
+
   emailValidate() {
     const { email, verifiedCaptcha } = this.state;
     const message = [];
@@ -107,6 +115,7 @@ class Email extends Component {
                 type="text" value={email}
                 maxLength="30"
                 onChange={(event) => this.setState({ email: event.target.value.trim() })}
+                onKeyPress={this.handleKeyPress}
               />
             </FormGroup>
           </Form>

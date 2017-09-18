@@ -140,7 +140,6 @@ class ResetPassword extends Component {
 
   render() {
     const { errorMessage, success, password, confirmPassword } = this.state;
-    const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
         {success && (

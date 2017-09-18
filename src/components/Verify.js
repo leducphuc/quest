@@ -28,6 +28,7 @@ class Verify extends Component {
     this.codeValidate = this.codeValidate.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
       code: '',
       verifyMethod: '',
@@ -80,6 +81,13 @@ class Verify extends Component {
         errorMessage: [],
       });
     };
+  }
+
+  handleKeyPress(evt) {
+    if (evt.key === 'Enter') {
+      evt.preventDefault();
+      this.onClickNext();
+    }
   }
 
   codeValidate() {
@@ -159,6 +167,7 @@ class Verify extends Component {
                   value={this.state.code}
                   onChange={this.onChange('code')}
                   maxLength={6}
+                  onKeyPress={this.handleKeyPress}
                 />
               </FormGroup>
             </Form>
