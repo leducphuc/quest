@@ -142,6 +142,8 @@ class ResetPassword extends Component {
     const { errorMessage, success, password, confirmPassword } = this.state;
     return (
       <div className="password_form">
+        <h2>Choose your new password</h2>
+        <h5>Please enter your new password</h5>
         {success && (
           <div className="static-modal">
             <Modal.Dialog>
@@ -160,7 +162,7 @@ class ResetPassword extends Component {
 
         <Form>
           <FormGroup>
-            <label htmlFor="password"> Password: </label>
+            <label htmlFor="password"> Enter new password: </label>
             <FormControl
               id="password"
               type="password"
@@ -170,7 +172,7 @@ class ResetPassword extends Component {
               onBlur={this.onBlur}
             />
 
-            <label htmlFor="confirmPassword"> Password Confirm: </label>
+            <label htmlFor="confirmPassword"> Confirm new password: </label>
             <FormControl
               id="confirmPassword"
               type="password"

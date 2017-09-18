@@ -60,6 +60,7 @@ class App extends Component {
                     className="logo"
                     src={logo}
                     alt="TTX"
+                    onClick={() => window.location.reload()}
                   />
                 </div>
               </div>

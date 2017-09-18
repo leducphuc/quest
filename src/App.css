@@ -143,12 +143,17 @@ h5 {
 #headerImage {
   width: 186px;
   height: 70px !important;
+  cursor: pointer;
 }
 
 #password, #confirmPassword {
   width: 50%;
   min-width: 352px;
   margin-bottom: 10px;
+}
+
+.password_form label {
+    font-weight: normal;
 }
 
 #userId{
