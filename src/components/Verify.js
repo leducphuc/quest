@@ -110,37 +110,37 @@ class Verify extends Component {
             <label>Please select your selected verification method</label>
             <br />
             <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  name="method_radio"
-                  value="MAIL"
-                  checked={this.state.verifyMethod === 'MAIL'}
-                  onChange={this.onChange('verifyMethod')}
-                />Email my alternative email
-              </label>
+              <input
+                type="radio"
+                name="method_radio"
+                value="MAIL"
+                id="MAIL"
+                checked={this.state.verifyMethod === 'MAIL'}
+                onChange={this.onChange('verifyMethod')}
+              />
+              <label htmlFor="MAIL">Email my alternative email</label>
             </div>
             <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  name="method_radio"
-                  value="SMS"
-                  checked={this.state.verifyMethod === 'SMS'}
-                  onChange={this.onChange('verifyMethod')}
-                />Text my mobile phone
-              </label>
+              <input
+                type="radio"
+                name="method_radio"
+                value="SMS"
+                id="SMS"
+                checked={this.state.verifyMethod === 'SMS'}
+                onChange={this.onChange('verifyMethod')}
+              />
+              <label htmlFor="SMS">Text my mobile phone</label>
             </div>
             <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  name="method_radio"
-                  value="CALL"
-                  checked={this.state.verifyMethod === 'CALL'}
-                  onChange={this.onChange('verifyMethod')}
-                />Call my mobile phone
-              </label>
+              <input
+                type="radio"
+                name="method_radio"
+                value="CALL"
+                id="CALL"
+                checked={this.state.verifyMethod === 'CALL'}
+                onChange={this.onChange('verifyMethod')}
+              />
+              <label htmlFor="CALL">Call my mobile phone</label>
             </div>
             {errorMessage.indexOf('verify_method') !== -1 && (
               <div className="error_message">
@@ -152,7 +152,7 @@ class Verify extends Component {
             <Form>
               <FormGroup controlId="formInlineName">
                 <ControlLabel>
-                  We have sent you a verification code Please enter it below{' '}
+                  We have sent you a verification code. Please enter it below{' '}
                 </ControlLabel>{' '}
                 <FormControl
                   type="text"

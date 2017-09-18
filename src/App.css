@@ -83,10 +83,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -128,20 +124,21 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .col-md-6, .col-md-8 {
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 
 h5 > label {
   margin-bottom: 20px;
 }
 
+h5 {
+  line-height: 18px !important;
+}
+
 .password_form {
   margin-top: 50px;
 }
 
-.password-form .form-group input {
-  display: none;
-}
 #headerImage {
   width: 186px;
   height: 70px !important;
@@ -156,4 +153,12 @@ h5 > label {
 #userId{
   max-width: 67%;
   min-width: 302px;
+}
+
+.checkbox+.checkbox, .radio+.radio {
+  margin-top: 5px !important;
+}
+
+.radio input[type=radio] {
+  margin-left: 0 !important;
 }

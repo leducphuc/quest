@@ -97,13 +97,13 @@ class Email extends Component {
       <div className="email_form">
         <AlertContainer ref={a => this.msg = a} {...alertOptions} />
         <h2> Who are you ? </h2>
-        <h5> To recover your account, begin entering your user ID and the captcha </h5>
+        <h5> To recover your account, begin by entering your user ID and the captcha below </h5>
         <div>
           <Form>
             <FormGroup validationState={validate_state} >
+              <label htmlFor="userID">User ID:</label>
               <FormControl
                 id="userId"
-                placeholder="User ID"
                 type="text" value={email}
                 maxLength="30"
                 onChange={(event) => this.setState({ email: event.target.value.trim() })}

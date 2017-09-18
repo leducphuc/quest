@@ -160,22 +160,22 @@ class ResetPassword extends Component {
         )}
 
         <Form>
-          <FormGroup validationState={validate_state}>
+          <FormGroup>
+            <label htmlFor="password"> Password: </label>
             <FormControl
               id="password"
               type="password"
               value={password}
-              placeholder="Password"
               maxLength="128"
               onChange={this.onChange('password')}
               onBlur={this.onBlur}
             />
 
+            <label htmlFor="confirmPassword"> Password Confirm: </label>
             <FormControl
               id="confirmPassword"
               type="password"
               value={confirmPassword}
-              placeholder="Password Confirmation"
               maxLength="128"
               onChange={this.onChange('confirmPassword')}
               onBlur={this.onBlur}
@@ -192,7 +192,7 @@ class ResetPassword extends Component {
         )}
         <Loader loaded={this.props.loaded}>
           <ButtonToolbar>
-            lkjlkjj<Button
+            <Button
               className="btn btn-lg btn-primary btn-sm rspass"
               onClick={this.onClickFinish}
             >
