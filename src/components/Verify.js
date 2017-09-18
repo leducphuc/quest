@@ -1,5 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { ButtonToolbar, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import {
+  ButtonToolbar,
+  Button,
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+} from 'react-bootstrap';
 import { url_api } from '../constant';
 
 const Loader = require('react-loader');
@@ -35,8 +42,10 @@ class Verify extends Component {
     } else {
       const url = `${url_api}/verifyCode?userId=${email}&method=${verifyMethod}&code=${code}`;
       const response = this.props.fetchApi(url);
-      response.then((res) => {
-        if (res.result === 'SUCCESS') {
+      response.then(res => {
+        if (!res) {
+          this.setState({ errorMessage: 'Bad Request' });
+        } else if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
           this.setState({ errorMessage: ['wrong_code'] });
@@ -83,77 +92,100 @@ class Verify extends Component {
     const errorMessage = this.state.errorMessage;
     return (
       <div className="code_form">
-        <div clasName="row">
+        <div className="row">
           <div className="page-title">
             <h2>Verify your verification code</h2>
           </div>
           <div className="col-md-5 left">
-            <label>Please select your selected verification method</label><br />
-
-            <input
-              type="radio" name="method_radio"
-              value="MAIL"
-              checked={this.state.verifyMethod === 'MAIL'}
-              onChange={this.onChange('verifyMethod')}
-            />Email my alternative email<br /><br />
-
-            <input
-              type="radio" name="method_radio"
-              value="SMS"
-              checked={this.state.verifyMethod === 'SMS'}
-              onChange={this.onChange('verifyMethod')}
-            />Text my mobile phone<br /><br />
-
-            <input
-              type="radio" name="method_radio"
-              value="CALL"
-              checked={this.state.verifyMethod === 'CALL'}
-              onChange={this.onChange('verifyMethod')}
-            />Call my mobile phone<br /><br />
-
-            {errorMessage.indexOf('verify_method') !== -1 &&
+            <label>Please select your selected verification method</label>
+            <br />
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  name="method_radio"
+                  value="MAIL"
+                  checked={this.state.verifyMethod === 'MAIL'}
+                  onChange={this.onChange('verifyMethod')}
+                />Email my alternative email
+              </label>
+            </div>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  name="method_radio"
+                  value="SMS"
+                  checked={this.state.verifyMethod === 'SMS'}
+                  onChange={this.onChange('verifyMethod')}
+                />Text my mobile phone
+              </label>
+            </div>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  name="method_radio"
+                  value="CALL"
+                  checked={this.state.verifyMethod === 'CALL'}
+                  onChange={this.onChange('verifyMethod')}
+                />Call my mobile phone
+              </label>
+            </div>
+            {errorMessage.indexOf('verify_method') !== -1 && (
               <div className="error_message">
                 <li>Verify method must be choosed</li>
               </div>
-            }
+            )}
           </div>
-          <div className="col-md-6 code-input">
+          <div className="col-md-5 code-input">
             <Form>
-              <FormGroup
-                controlId="formInlineName"
-              >
+              <FormGroup controlId="formInlineName">
                 <ControlLabel>
-                  We have sent you a verification code Please enter it below </ControlLabel>{' '}
-                <FormControl type="text" value={this.state.code} onChange={this.onChange('code')} maxLength={6} />
+                  We have sent you a verification code Please enter it below{' '}
+                </ControlLabel>{' '}
+                <FormControl
+                  type="text"
+                  value={this.state.code}
+                  onChange={this.onChange('code')}
+                  maxLength={6}
+                />
               </FormGroup>
-            </Form><br />
+            </Form>
+            <br />
 
-            {errorMessage.indexOf('code_blank') !== -1 &&
+            {errorMessage.indexOf('code_blank') !== -1 && (
               <div className="error_message">
                 <li>Code can not leave blank</li>
               </div>
-            }
+            )}
 
-            {errorMessage.indexOf('invalid_code') !== -1 &&
+            {errorMessage.indexOf('invalid_code') !== -1 && (
               <div className="error_message">
                 <li>Invalid code</li>
               </div>
-            }
+            )}
 
-            {errorMessage.indexOf('wrong_code') !== -1 &&
+            {errorMessage.indexOf('wrong_code') !== -1 && (
               <div className="error_message">
                 <li>Wrong code</li>
               </div>
-            }
+            )}
 
             <Loader loaded={this.props.loaded}>
               <div>
                 <ButtonToolbar>
                   <Button bsStyle="primary" onClick={this.onClickNext}>
                     Next
-               </Button>
+                  </Button>
 
-                  <div className="cancel-text" onClick={this.onClickCancel}>Cancel</div>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={this.onClickCancel}
+                  >
+                    Cancel
+                  </button>
                 </ButtonToolbar>
               </div>
             </Loader>

@@ -40,16 +40,17 @@ class Email extends Component {
     if (message.length !== 0) {
       this.setState({ errorMessage: message });
     } else if (verifiedCaptcha) {
-      const response = this.props.fetchApi(`${url_api}/checkUser?userId=${this.state.email}`,
-        { method: 'GET' });
-      response.then((res) => {
-        if (res.status === 'true') {
-          this.props.setEmail(this.state.email);
+      const response = this.props.fetchApi(`${url_api}/checkUser?userId=${this.state.email}`);
+
+      response.then(res => {
+        if (!res) {
+          this.setState({ errorMessage: 'Bad Request' });
+        } else if (res.status === 'true') {
           this.props.increasePhase();
         } else {
           this.setState({ errorMessage: ['UserID Not Exitsed'] });
         }
-      }).catch((error) => console.log(error));
+      });
     }
   }
 
@@ -91,6 +92,7 @@ class Email extends Component {
           <Form>
             <FormGroup validationState={validate_state} >
               <FormControl
+                id="userId"
                 placeholder="User ID"
                 type="text" value={email}
                 maxLength="30"
@@ -129,7 +131,7 @@ class Email extends Component {
                 }
                 {
                   email.length === 0 &&
-                  <div className="cancel-text" onClick={this.onClickCancel}>Cancel</div>
+                  <button type="button" className="btn btn-link email-cancel" onClick={this.onClickCancel}>Cancel</button>
                 }
               </ButtonToolbar>
             </div>

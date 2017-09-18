@@ -1,29 +1,23 @@
 body {
   background-color: transparent;
+  background-image: url(https://www.ttx.com/wp-content/uploads/2017/01/headerImage2.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: color-burn;
 }
-.App .container{
+
+.App .container {
   margin-left: 0 !important;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
 }
 
 .btn-email {
   margin-top: 50px;
   margin-bottom: 30px;
+}
+
+.password-cancel {
+  margin-top: 50px;
 }
 
 .email-button {
@@ -41,16 +35,6 @@ body {
     width: 100px;
 }
 
-.cancel-text {
-    line-height: 38px;
-    color: #0072C6;
-}
-
-.cancel-text:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .web-title {
   width: fit-content;
 }
@@ -63,6 +47,7 @@ body {
   border-left: solid;
   border-left-width: 1px;
   border-left-color: #695454;
+  padding-left: 4%;
 }
 
 h1 {
@@ -137,14 +122,35 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 0 !important; 
 }
 
+
+
+.col-md-6, .col-md-8 {
+  padding-left: 0;
+}
+
 h5 > label {
   margin-bottom: 20px;
 }
 
-.password_form .cancel-text {
-  line-height: 135px;
+.password_form {
+  margin-top: 50px;
+}
+
+.password-form .form-group input {
+  display: none;
 }
 #headerImage {
   width: 186px;
   height: 70px !important;
+}
+
+#password, #confirmPassword {
+  width: 50%;
+  min-width: 352px;
+  margin-bottom: 10px;
+}
+
+#userId{
+  max-width: 67%;
+  min-width: 302px;
 }
