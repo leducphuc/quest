@@ -109,7 +109,7 @@ class Email extends Component {
         <div>
           <Form>
             <FormGroup validationState={validate_state} >
-              <div>User ID: </div>
+              <h6>User ID: </h6>
               <FormControl
                 id="userId"
                 type="text" value={email}

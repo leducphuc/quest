@@ -14,7 +14,7 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 0,
+      phase: 1,
       email: '',
       loaded: true,
       error: '',

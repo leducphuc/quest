@@ -152,7 +152,7 @@ class Verify extends Component {
             </div>
             {errorMessage.indexOf('verify_method') !== -1 && (
               <div className="error_message">
-                <li>Verify method must be choosed</li>
+                <li>Verify method is required</li>
               </div>
             )}
           </div>
