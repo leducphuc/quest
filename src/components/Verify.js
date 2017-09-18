@@ -179,13 +179,8 @@ class Verify extends Component {
               </div>
             )}
 
-            {errorMessage.indexOf('invalid_code') !== -1 && (
-              <div className="error_message">
-                <li>Invalid code</li>
-              </div>
-            )}
-
-            {errorMessage.indexOf('wrong_code') !== -1 && (
+            {(errorMessage.indexOf('wrong_code') !== -1 ||
+              errorMessage.indexOf('invalid_code') !== -1) && (
               <div className="error_message">
                 <li>The code you entered is invalid or it is expired. Please check
                   that you have typed your code correctly or retry to get a new code.

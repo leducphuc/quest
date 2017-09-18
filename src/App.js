@@ -66,7 +66,7 @@ class App extends Component {
             </Panel>
           </div>
           <div className="body">
-            <Panel className="panel-default">
+            <Panel>
               <div className="web-title">
                 <h1> Get back into your account </h1>
               </div>

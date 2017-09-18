@@ -153,7 +153,7 @@ class ResetPassword extends Component {
 
               <Modal.Footer>
                 <Button onClick={() => window.location.reload()}>Close</Button>
-              </Modal.Footer>sdfasdfalkjljsadf
+              </Modal.Footer>
             </Modal.Dialog>
           </div>
         )}

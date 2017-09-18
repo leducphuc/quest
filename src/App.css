@@ -163,3 +163,7 @@ h5 {
 .radio input[type=radio] {
   margin-left: 0 !important;
 }
+
+.panel-default {
+  border-color: #fff !important;
+}
