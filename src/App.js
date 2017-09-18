@@ -51,11 +51,15 @@ class App extends Component {
   fetchApi(url) {
     this.setState({ loaded: false });
     return this.timeoutPromise(5000, fetch(url))
-      .then(() => {
+      .then((response) => {
         this.setState({ loaded: true });
+        return response.json();
+      }).then((json) => {
+        return json;
       })
-      .catch(() => {
+      .catch((error) => {
         this.setState({ loaded: true });
+        console.error(error);
       });
   }
 
