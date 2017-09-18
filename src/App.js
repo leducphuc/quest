@@ -15,7 +15,7 @@ class App extends Component {
     this.setEmail = this.setEmail.bind(this);
     this.timeoutPromise = this.timeoutPromise.bind(this);
     this.state = {
-      phase: 1,
+      phase: 0,
       email: '',
       loaded: true,
       error: '',
@@ -50,12 +50,12 @@ class App extends Component {
 
   fetchApi(url) {
     this.setState({ loaded: false });
-    return this.timeoutPromise(1000, fetch(url))
+    return this.timeoutPromise(5000, fetch(url))
       .then(() => {
         this.setState({ loaded: true });
       })
       .catch(() => {
-        this.setState({ loaded: true, error: 'Connection Time Out' });
+        this.setState({ loaded: true });
       });
   }
 

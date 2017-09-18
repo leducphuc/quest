@@ -1,11 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import Recaptcha from 'react-recaptcha';
+import AlertContainer from 'react-alert';
 import { Button, FormGroup, FormControl, Form, ButtonToolbar } from 'react-bootstrap';
 import { url_api } from '../constant';
 
 const Loader = require('react-loader');
 
 const EMAIL_REGEX = /^[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+const alertOptions = {
+  offset: (50, 50),
+  position: 'top right',
+  theme: 'dark',
+  time: 5000,
+  transition: 'fade',
+};
+
 class Email extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +53,7 @@ class Email extends Component {
 
       response.then(res => {
         if (!res) {
-          this.setState({ errorMessage: 'Bad Request' });
+          this.msg.error('Bad Request');
         } else if (res.status === 'true') {
           this.props.increasePhase();
         } else {
@@ -85,7 +94,7 @@ class Email extends Component {
     const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="email_form">
-
+        <AlertContainer ref={a => this.msg = a} {...alertOptions} />
         <h2> Who are you ? </h2>
         <h5> To recover your account, begin entering your user ID and the captcha </h5>
         <div>

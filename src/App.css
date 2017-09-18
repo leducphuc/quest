@@ -39,9 +39,17 @@ body {
   width: fit-content;
 }
 
+.row {
+  margin-left: 0 !important;
+}
+
 /* .panel-body {
   width: fit-content;
 } */
+
+.code-form {
+  padding-left: 15px;
+}
 
 .code-input {
   border-left: solid;

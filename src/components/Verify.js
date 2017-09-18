@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import AlertContainer from 'react-alert';
 import {
   ButtonToolbar,
   Button,
@@ -10,6 +11,14 @@ import {
 import { url_api } from '../constant';
 
 const Loader = require('react-loader');
+
+const alertOptions = {
+  offset: 50,
+  position: 'top right',
+  theme: 'dark',
+  time: 5000,
+  transition: 'fade',
+};
 
 const CODE_REGEX = /^([0-9]{6})/;
 class Verify extends Component {
@@ -44,7 +53,7 @@ class Verify extends Component {
       const response = this.props.fetchApi(url);
       response.then(res => {
         if (!res) {
-          this.setState({ errorMessage: 'Bad Request' });
+          this.msg.error('Bad Request');
         } else if (res.result === 'SUCCESS') {
           this.props.increasePhase();
         } else {
@@ -92,6 +101,7 @@ class Verify extends Component {
     const errorMessage = this.state.errorMessage;
     return (
       <div className="code_form">
+        <AlertContainer ref={a => this.msg = a} {...alertOptions} />
         <div className="row">
           <div className="page-title">
             <h2>Verify your verification code</h2>

@@ -1,30 +1,29 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component, PropTypes } from 'react';
 import {
   Button,
   Modal,
   FormGroup,
   FormControl,
-  Form,
-  ButtonToolbar
-} from "react-bootstrap";
+  Form, ButtonToolbar,
+} from 'react-bootstrap';
 import {
   LOWERS,
   NUMBERS,
   UPPERS,
   SPECIAL_CHARACTERS,
-  url_api
-} from "../constant";
+  url_api,
+} from '../constant';
 
-const Loader = require("react-loader");
+const Loader = require('react-loader');
 
 const initial_state = {
-  password: "",
+  password: '',
   showErrorMessage: false,
-  confirmPassword: "",
+  confirmPassword: '',
   errorMessage: [],
   confirmErrorMessage: [],
   passwordErrorMessage: [],
-  success: false
+  success: false,
 };
 
 class ResetPassword extends Component {
@@ -50,7 +49,7 @@ class ResetPassword extends Component {
       const error = this.passwordValidate(field, value);
       this.setState({
         [field]: value,
-        errorMessage: error
+        errorMessage: error,
       });
     };
   }
@@ -60,17 +59,17 @@ class ResetPassword extends Component {
     const value = evt.target.value;
     const error = this.passwordValidate(field, value);
     this.setState({
-      errorMessage: error
+      errorMessage: error,
     });
   }
 
   onClickFinish() {
     const { password, confirmPassword } = this.state;
     const confirmErrors = this.passwordValidate(
-      "confirmPassword",
+      'confirmPassword',
       confirmPassword
     );
-    const passwordErrors = this.passwordValidate("password", password);
+    const passwordErrors = this.passwordValidate('password', password);
     const errors = passwordErrors.concat(confirmErrors);
 
     if (errors.length !== 0) {
@@ -82,10 +81,10 @@ class ResetPassword extends Component {
         .email}&newPassword=${password}`;
       const response = this.props.fetchApi(url);
       response.then(res => {
-        if (res.status === "SUCCESS") {
+        if (!res) {
+          this.msg.error('Bad Request');
+        } else if (res.status === 'SUCCESS') {
           this.setState({ success: true });
-        } else {
-          this.setState({ errorMessage: ["Network error"] });
         }
       });
     }
@@ -98,42 +97,42 @@ class ResetPassword extends Component {
   passwordValidate(field, value) {
     const message = [];
     const current_field =
-      field === "password" ? "Password" : "Password Confirm";
+      field === 'password' ? 'Password' : 'Password Confirm';
     if (value.length === 0) {
       message.push(`${current_field} field is required!`);
-    } else if (field === "password") {
+    } else if (field === 'password') {
       if (value.length < 6) {
-        message.push("Password must contain at least 6 characters");
+        message.push('Password must contain at least 6 characters');
         message.push(
-          "Password must contain an upper case character, a special character and a digit"
+          'Password must contain an upper case character, a special character and a digit'
         );
       } else {
-        let missing = "";
-        const head = "Password must contain";
+        let missing = '';
+        const head = 'Password must contain';
         if (!NUMBERS.test(value)) {
-          missing += " a number";
+          missing += ' a number';
         }
         if (!UPPERS.test(value)) {
-          missing += " an upper case character";
+          missing += ' an upper case character';
         }
         if (!LOWERS.test(value)) {
-          missing += " an lower case character";
+          missing += ' an lower case character';
         }
         if (!SPECIAL_CHARACTERS.test(value)) {
-          missing += " an special character";
+          missing += ' an special character';
         }
-        if (missing !== "") {
+        if (missing !== '') {
           message.push(head + missing);
         }
       }
       if (message.length > 0) {
         message.unshift(
-          "The password does not conform to the account password policy:"
+          'The password does not conform to the account password policy:'
         );
       }
-    } else if (field === "confirmPassword") {
+    } else if (field === 'confirmPassword') {
       if (value !== this.state.password) {
-        message.push("Passwords do not match");
+        message.push('Passwords do not match');
       }
     }
     return message;
@@ -141,7 +140,7 @@ class ResetPassword extends Component {
 
   render() {
     const { errorMessage, success, password, confirmPassword } = this.state;
-    const validate_state = errorMessage.length === 0 ? null : "error";
+    const validate_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
         {success && (
@@ -155,7 +154,7 @@ class ResetPassword extends Component {
 
               <Modal.Footer>
                 <Button onClick={() => window.location.reload()}>Close</Button>
-              </Modal.Footer>
+              </Modal.Footer>sdfasdfalkjljsadf
             </Modal.Dialog>
           </div>
         )}
@@ -168,7 +167,7 @@ class ResetPassword extends Component {
               value={password}
               placeholder="Password"
               maxLength="128"
-              onChange={this.onChange("password")}
+              onChange={this.onChange('password')}
               onBlur={this.onBlur}
             />
 
@@ -178,7 +177,7 @@ class ResetPassword extends Component {
               value={confirmPassword}
               placeholder="Password Confirmation"
               maxLength="128"
-              onChange={this.onChange("confirmPassword")}
+              onChange={this.onChange('confirmPassword')}
               onBlur={this.onBlur}
             />
           </FormGroup>
@@ -193,7 +192,7 @@ class ResetPassword extends Component {
         )}
         <Loader loaded={this.props.loaded}>
           <ButtonToolbar>
-            <Button
+            lkjlkjj<Button
               className="btn btn-lg btn-primary btn-sm rspass"
               onClick={this.onClickFinish}
             >
@@ -219,7 +218,7 @@ ResetPassword.propTypes = {
   email: PropTypes.string,
   fetchApi: PropTypes.func,
   error: PropTypes.string,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
 };
 
 export default ResetPassword;
