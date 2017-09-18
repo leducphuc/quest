@@ -59,7 +59,7 @@ class Email extends Component {
           this.props.increasePhase();
           this.props.setEmail(this.state.email);
         } else {
-          this.setState({ errorMessage: ['UserID Not Exitsed'] });
+          this.setState({ errorMessage: ['The user ID you entered does not exist. Please check that you have typed your user ID correctly.'] });
         }
       });
     }
@@ -84,12 +84,12 @@ class Email extends Component {
     const message = [];
 
     if (!verifiedCaptcha) {
-      message.push('Captcha has not been completed');
+      message.push('Captcha is required.');
     }
     if (email.length === 0) {
-      message.push('Email can not leave blank');
+      message.push('User ID is required.');
     } else if (email.length < 6 || !EMAIL_REGEX.test(email)) {
-      message.push('Invalid Email');
+      message.push('Please type your User ID in the format user.ttx.');
     }
     return message;
   }
@@ -109,7 +109,7 @@ class Email extends Component {
         <div>
           <Form>
             <FormGroup validationState={validate_state} >
-              <label htmlFor="userID">User ID:</label>
+              <div>User ID: </div>
               <FormControl
                 id="userId"
                 type="text" value={email}
@@ -120,7 +120,7 @@ class Email extends Component {
             </FormGroup>
           </Form>
           <div className="example-email">
-            <h5>Example: user.ttx</h5>
+            <h6>Example: user.ttx</h6>
           </div>
           {errorMessage.length >= 0 &&
             <div className="error_message">

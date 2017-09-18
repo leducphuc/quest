@@ -175,7 +175,7 @@ class Verify extends Component {
 
             {errorMessage.indexOf('code_blank') !== -1 && (
               <div className="error_message">
-                <li>Code can not leave blank</li>
+                <li>This field is required.</li>
               </div>
             )}
 
@@ -187,7 +187,9 @@ class Verify extends Component {
 
             {errorMessage.indexOf('wrong_code') !== -1 && (
               <div className="error_message">
-                <li>Wrong code</li>
+                <li>The code you entered is invalid or it is expired. Please check
+                  that you have typed your code correctly or retry to get a new code.
+                </li>
               </div>
             )}
 
