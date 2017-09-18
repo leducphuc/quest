@@ -56,6 +56,7 @@ class Email extends Component {
           this.msg.error('Bad Request');
         } else if (res.status === 'true') {
           this.props.increasePhase();
+          this.props.setEmail(this.state.email);
         } else {
           this.setState({ errorMessage: ['UserID Not Exitsed'] });
         }
@@ -133,15 +134,8 @@ class Email extends Component {
                 <Button bsStyle="primary" onClick={this.onClickNext}>
                   Next
                </Button>
-                {email.length !== 0 &&
-                  <Button bsStyle="default" onClick={this.onClickCancel}>
-                    Cancel
-                </Button>
-                }
-                {
-                  email.length === 0 &&
-                  <button type="button" className="btn btn-link email-cancel" onClick={this.onClickCancel}>Cancel</button>
-                }
+
+                <button type="button" className="btn btn-link " onClick={this.onClickCancel}>Cancel</button>
               </ButtonToolbar>
             </div>
           </Loader>

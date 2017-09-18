@@ -13,7 +13,6 @@ class App extends Component {
     this.increasePhase = this.increasePhase.bind(this);
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
-    this.timeoutPromise = this.timeoutPromise.bind(this);
     this.state = {
       phase: 0,
       email: '',
@@ -30,27 +29,9 @@ class App extends Component {
     this.setState({ phase: this.state.phase + 1 });
   }
 
-  timeoutPromise(ms, promise) {
-    return new Promise((resolve, reject) => {
-      const timeoutId = setTimeout(() => {
-        reject(new Error('promise timeout'));
-      }, ms);
-      promise.then(
-        res => {
-          clearTimeout(timeoutId);
-          resolve(res);
-        },
-        err => {
-          clearTimeout(timeoutId);
-          reject(err);
-        }
-      );
-    });
-  }
-
   fetchApi(url) {
     this.setState({ loaded: false });
-    return this.timeoutPromise(5000, fetch(url))
+    return fetch(url)
       .then((response) => {
         this.setState({ loaded: true });
         return response.json();
