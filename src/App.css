@@ -118,10 +118,9 @@ h1, h2, h3, h4, h6 {
 }
 
 .code_form .col-md-5.left {
-  padding-left: 0 !important; 
+  padding-left: 0 !important;
+  width: unset;
 }
-
-
 
 .col-md-6, .col-md-8 {
   padding-left: 0 !important;
@@ -172,3 +171,4 @@ h5 {
 .panel-default {
   border-color: #fff !important;
 }
+

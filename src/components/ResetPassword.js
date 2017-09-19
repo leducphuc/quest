@@ -186,8 +186,9 @@ class ResetPassword extends Component {
 
         {errorMessage.length >= 0 && (
           <div className="error_message">
+            <div>{errorMessage[0]}</div>
             {errorMessage.map((message, index) => (
-              <li key={index}>{message}</li>
+              index > 0 && <li key={index}>{message}</li>
             ))}
           </div>
         )}

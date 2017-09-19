@@ -115,7 +115,7 @@ class Verify extends Component {
             <h2>Verify your verification code</h2>
           </div>
           <div className="col-md-5 left">
-            <label>Please select your selected verification method</label>
+            <div>Please select your selected verification method</div>
             <br />
             <div className="radio">
               <input
@@ -159,9 +159,9 @@ class Verify extends Component {
           <div className="col-md-5 code-input">
             <Form>
               <FormGroup controlId="formInlineName">
-                <ControlLabel>
+                <div>
                   We have sent you a verification code. Please enter it below{' '}
-                </ControlLabel>{' '}
+                </div>
                 <FormControl
                   type="text"
                   value={this.state.code}
