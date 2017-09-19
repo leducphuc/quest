@@ -46,11 +46,20 @@ body {
   padding-left: 15px;
 }
 
+.code-field {
+  margin-bottom: 10px;
+}
+
 .code-input {
   border-left: solid;
   border-left-width: 1px;
   border-left-color: #695454;
   padding-left: 4%;
+  padding-top: 10px;
+}
+
+.code-input input {
+  margin: 10px;
 }
 
 h1 {
@@ -128,6 +137,10 @@ h1, h2, h3, h4, h6 {
 
 h5 > label {
   margin-bottom: 20px;
+}
+
+.lab {
+  line-height: 50px;
 }
 
 h5 {

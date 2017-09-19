@@ -114,97 +114,99 @@ class Verify extends Component {
           <div className="page-title">
             <h2>Verify your verification code</h2>
           </div>
-          <div className="col-md-5 left">
-            <div>Please select your selected verification method</div>
-            <br />
-            <div className="radio">
-              <input
-                type="radio"
-                name="method_radio"
-                value="MAIL"
-                id="MAIL"
-                checked={this.state.verifyMethod === 'MAIL'}
-                onChange={this.onChange('verifyMethod')}
-              />
-              <label htmlFor="MAIL">Email my alternative email</label>
-            </div>
-            <div className="radio">
-              <input
-                type="radio"
-                name="method_radio"
-                value="SMS"
-                id="SMS"
-                checked={this.state.verifyMethod === 'SMS'}
-                onChange={this.onChange('verifyMethod')}
-              />
-              <label htmlFor="SMS">Text my mobile phone</label>
-            </div>
-            <div className="radio">
-              <input
-                type="radio"
-                name="method_radio"
-                value="CALL"
-                id="CALL"
-                checked={this.state.verifyMethod === 'CALL'}
-                onChange={this.onChange('verifyMethod')}
-              />
-              <label htmlFor="CALL">Call my mobile phone</label>
-            </div>
-            {errorMessage.indexOf('verify_method') !== -1 && (
-              <div className="error_message">
-                <li>Verify method is required</li>
-              </div>
-            )}
-          </div>
-          <div className="col-md-5 code-input">
-            <Form>
-              <FormGroup controlId="formInlineName">
-                <div>
-                  We have sent you a verification code. Please enter it below{' '}
-                </div>
-                <FormControl
-                  type="text"
-                  value={this.state.code}
-                  onChange={this.onChange('code')}
-                  maxLength={6}
-                  onKeyPress={this.handleKeyPress}
+          <div className="lab">Please select your selected verification method</div>
+          <div>
+            <div className="col-md-5 left">
+              <div className="radio">
+                <input
+                  type="radio"
+                  name="method_radio"
+                  value="MAIL"
+                  id="MAIL"
+                  checked={this.state.verifyMethod === 'MAIL'}
+                  onChange={this.onChange('verifyMethod')}
                 />
-              </FormGroup>
-            </Form>
-            <br />
-
-            {errorMessage.indexOf('code_blank') !== -1 && (
-              <div className="error_message">
-                <li>This field is required.</li>
+                <label htmlFor="MAIL">Email my alternative email</label>
               </div>
-            )}
+              <div className="radio">
+                <input
+                  type="radio"
+                  name="method_radio"
+                  value="SMS"
+                  id="SMS"
+                  checked={this.state.verifyMethod === 'SMS'}
+                  onChange={this.onChange('verifyMethod')}
+                />
+                <label htmlFor="SMS">Text my mobile phone</label>
+              </div>
+              <div className="radio">
+                <input
+                  type="radio"
+                  name="method_radio"
+                  value="CALL"
+                  id="CALL"
+                  checked={this.state.verifyMethod === 'CALL'}
+                  onChange={this.onChange('verifyMethod')}
+                />
+                <label htmlFor="CALL">Call my mobile phone</label>
+              </div>
+              {errorMessage.indexOf('verify_method') !== -1 && (
+                <div className="error_message">
+                  <li>Verify method is required</li>
+                </div>
+              )}
+            </div>
+            <div className="col-md-5 code-input">
+              <div>
+                <Form>
+                  <FormGroup controlId="formInlineName">
+                    <div className="code-field">
+                      We have sent you a verification code. Please enter it below{' '}
+                    </div>
+                    <FormControl
+                      type="text"
+                      value={this.state.code}
+                      onChange={this.onChange('code')}
+                      maxLength={6}
+                      onKeyPress={this.handleKeyPress}
+                    />
+                  </FormGroup>
+                </Form>
+              </div>
 
-            {(errorMessage.indexOf('wrong_code') !== -1 ||
-              errorMessage.indexOf('invalid_code') !== -1) && (
-              <div className="error_message">
-                <li>The code you entered is invalid or it is expired. Please check
+              {errorMessage.indexOf('code_blank') !== -1 && (
+                <div className="error_message">
+                  <li>This field is required.</li>
+                </div>
+              )}
+
+              {(errorMessage.indexOf('wrong_code') !== -1 ||
+                errorMessage.indexOf('invalid_code') !== -1) && (
+                  <div className="error_message">
+                    <li>The code you entered is invalid or it is expired. Please check
                   that you have typed your code correctly or retry to get a new code.
                 </li>
-              </div>
-            )}
+                  </div>
+                )}
 
-            <Loader loaded={this.props.loaded}>
-              <div>
-                <ButtonToolbar>
-                  <Button bsStyle="primary" onClick={this.onClickNext}>
-                    Next
+              <Loader loaded={this.props.loaded}>
+                <div>
+                  <ButtonToolbar>
+                    <Button bsStyle="primary" onClick={this.onClickNext}>
+                      Next
                   </Button>
 
-                  <button
-                    type="button"
-                    className="btn btn-link"
-                    onClick={this.onClickCancel}
-                  >
-                    Cancel
+                    <button
+                      type="button"
+                      className="btn btn-link"
+                      onClick={this.onClickCancel}
+                    >
+                      Cancel
                   </button>
-                </ButtonToolbar>
-              </div>
-            </Loader>
+                  </ButtonToolbar>
+                </div>
+              </Loader>
+            </div>
           </div>
         </div>
       </div>
