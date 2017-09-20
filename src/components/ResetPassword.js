@@ -58,7 +58,9 @@ class ResetPassword extends Component {
     const field = evt.target.id;
     const value = evt.target.value;
     const error = this.passwordValidate(field, value);
+    const errorField = field === 'password' ? 'passwordErrorMessage' : 'confirmErrorMessage';
     this.setState({
+      [errorField]: error,
       errorMessage: error,
     });
   }
@@ -95,6 +97,7 @@ class ResetPassword extends Component {
   }
 
   passwordValidate(field, value) {
+    const password = this.state.password;
     const message = [];
     const current_field =
       field === 'password' ? 'Password' : 'Password Confirm';
@@ -108,18 +111,25 @@ class ResetPassword extends Component {
         );
       } else {
         let missing = '';
-        const head = 'Password must contain';
+        let isMissing = false;
+        const head = 'Password must contain:';
         if (!NUMBERS.test(value)) {
           missing += ' a number';
+          isMissing = true;
         }
         if (!UPPERS.test(value)) {
-          missing += ' an upper case character';
+          const front = isMissing ? ', ' : ' ';
+          missing += `${front}an upper case character`;
+          isMissing = true;
         }
         if (!LOWERS.test(value)) {
-          missing += ' an lower case character';
+          const front = isMissing ? ', ' : ' ';
+          missing += `${front}an lower case character`;
+          isMissing = true;
         }
         if (!SPECIAL_CHARACTERS.test(value)) {
-          missing += ' an special character';
+          const front = isMissing ? ', ' : ' ';
+          missing += `${front}an special character`;
         }
         if (missing !== '') {
           message.push(head + missing);
@@ -131,7 +141,7 @@ class ResetPassword extends Component {
         );
       }
     } else if (field === 'confirmPassword') {
-      if (value !== this.state.password) {
+      if (value !== password && password.length !== 0) {
         message.push('Passwords do not match');
       }
     }
@@ -139,10 +149,13 @@ class ResetPassword extends Component {
   }
 
   render() {
-    const { errorMessage, success, password, confirmPassword } = this.state;
-    const validate_state = errorMessage.length === 0 ? null : 'error';
+    const { errorMessage, success, password, confirmPassword, passwordErrorMessage, confirmErrorMessage } = this.state;
+    const passwordValidate = passwordErrorMessage.length === 0 ? null : 'error';
+    const confirmValidate = confirmErrorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
+        <h2>Choose your new password</h2>
+        <h5>Please enter your new password</h5>
         {success && (
           <div className="static-modal">
             <Modal.Dialog>
@@ -154,28 +167,30 @@ class ResetPassword extends Component {
 
               <Modal.Footer>
                 <Button onClick={() => window.location.reload()}>Close</Button>
-              </Modal.Footer>sdfasdfalkjljsadf
+              </Modal.Footer>
             </Modal.Dialog>
           </div>
         )}
 
         <Form>
-          <FormGroup validationState={validate_state}>
+          <FormGroup validationState={passwordValidate}>
+            <h5> Enter new password: </h5>
             <FormControl
               id="password"
               type="password"
               value={password}
-              placeholder="Password"
               maxLength="128"
               onChange={this.onChange('password')}
               onBlur={this.onBlur}
             />
-
+          </FormGroup>
+          
+          <FormGroup validationState={confirmValidate}>
+            <h5> Confirm new password: </h5>
             <FormControl
               id="confirmPassword"
               type="password"
               value={confirmPassword}
-              placeholder="Password Confirmation"
               maxLength="128"
               onChange={this.onChange('confirmPassword')}
               onBlur={this.onBlur}
@@ -185,14 +200,15 @@ class ResetPassword extends Component {
 
         {errorMessage.length >= 0 && (
           <div className="error_message">
+            <div>{errorMessage[0]}</div>
             {errorMessage.map((message, index) => (
-              <li key={index}>{message}</li>
+              index > 0 && <li key={index}>{message}</li>
             ))}
           </div>
         )}
         <Loader loaded={this.props.loaded}>
           <ButtonToolbar>
-            lkjlkjj<Button
+            <Button
               className="btn btn-lg btn-primary btn-sm rspass"
               onClick={this.onClickFinish}
             >

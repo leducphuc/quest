@@ -13,9 +13,8 @@ class App extends Component {
     this.increasePhase = this.increasePhase.bind(this);
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
-    this.timeoutPromise = this.timeoutPromise.bind(this);
     this.state = {
-      phase: 0,
+      phase: 2,
       email: '',
       loaded: true,
       error: '',
@@ -30,32 +29,18 @@ class App extends Component {
     this.setState({ phase: this.state.phase + 1 });
   }
 
-  timeoutPromise(ms, promise) {
-    return new Promise((resolve, reject) => {
-      const timeoutId = setTimeout(() => {
-        reject(new Error('promise timeout'));
-      }, ms);
-      promise.then(
-        res => {
-          clearTimeout(timeoutId);
-          resolve(res);
-        },
-        err => {
-          clearTimeout(timeoutId);
-          reject(err);
-        }
-      );
-    });
-  }
-
   fetchApi(url) {
     this.setState({ loaded: false });
-    return this.timeoutPromise(5000, fetch(url))
-      .then(() => {
+    return fetch(url)
+      .then((response) => {
         this.setState({ loaded: true });
+        return response.json();
+      }).then((json) => {
+        return json;
       })
-      .catch(() => {
+      .catch((error) => {
         this.setState({ loaded: true });
+        console.error(error);
       });
   }
 
@@ -75,13 +60,14 @@ class App extends Component {
                     className="logo"
                     src={logo}
                     alt="TTX"
+                    onClick={() => window.location.reload()}
                   />
                 </div>
               </div>
             </Panel>
           </div>
           <div className="body">
-            <Panel className="panel-default">
+            <Panel>
               <div className="web-title">
                 <h1> Get back into your account </h1>
               </div>
