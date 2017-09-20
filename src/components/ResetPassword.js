@@ -34,6 +34,7 @@ class ResetPassword extends Component {
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
+    this.onFocus = this.onFocus.bind(this);
     this.state = initial_state;
   }
 
@@ -63,6 +64,14 @@ class ResetPassword extends Component {
       [errorField]: error,
       errorMessage: error,
     });
+  }
+
+  onFocus(evt) {
+    this.setState( {
+      errorMessage: [],
+      confirmErrors: [],
+      passwordErrors: [],
+    } );
   }
 
   onClickFinish() {
@@ -182,9 +191,10 @@ class ResetPassword extends Component {
               maxLength="128"
               onChange={this.onChange('password')}
               onBlur={this.onBlur}
+              onFocus={this.onFocus}
             />
           </FormGroup>
-          
+
           <FormGroup validationState={confirmValidate}>
             <h5> Confirm new password: </h5>
             <FormControl
@@ -194,6 +204,7 @@ class ResetPassword extends Component {
               maxLength="128"
               onChange={this.onChange('confirmPassword')}
               onBlur={this.onBlur}
+              onFocus={this.onFocus}
             />
           </FormGroup>
         </Form>
