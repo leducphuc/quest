@@ -20,6 +20,14 @@ const alertOptions = {
   transition: 'fade',
 };
 
+const initialState = {
+  code: '',
+  verifyMethod: '',
+  errorMessage: [],
+  verifiedCode: false,
+  methodError: false,
+};
+
 const CODE_REGEX = /^([0-9]{6})/;
 class Verify extends Component {
   constructor(props) {
@@ -29,18 +37,17 @@ class Verify extends Component {
     this.onChange = this.onChange.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.state = {
-      code: '',
-      verifyMethod: '',
-      errorMessage: [],
-      verifiedCode: false,
-      methodError: false,
-    };
+    this.state = initialState;
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillUpdate(nextProps, nextState) {
     if (this.props.error.length < nextProps.error.length) {
       this.setState({ errorMessage: [nextProps.error] });
+    }
+    if (this.state.errorMessage.length > 0 && nextState.errorMessage.length === 0) {
+      this.setState({
+        methodError: false,
+      });
     }
   }
 
@@ -50,11 +57,12 @@ class Verify extends Component {
     const message = this.codeValidate();
 
     if (message.length !== 0) {
+      console.log(message);
       if (message.indexOf('verify_method') !== -1) {
         message.splice(0, 1);
         this.setState({ methodError: true });
       }
-      this.setState({ errorMessage: message }, () => console.log(this.setState.errorMessage));
+      this.setState({ errorMessage: message });
     } else {
       const url = `${url_api}/verifyCode?userId=${email}&method=${verifyMethod}&code=${code}`;
       const response = this.props.fetchApi(url);
@@ -71,12 +79,7 @@ class Verify extends Component {
   }
 
   onClickCancel() {
-    this.setState({
-      code: '',
-      verifyMethod: '',
-      errorMessage: [],
-      verifiedCode: false,
-    });
+    this.setState(initialState);
   }
 
   onChange(field) {
@@ -100,13 +103,13 @@ class Verify extends Component {
     const { code, verifyMethod } = this.state;
     const message = [];
 
+    if (verifyMethod === '') {
+      message.push('verify_method');
+    }
     if (code.length === 0) {
       message.push('code_blank');
     } else if (!CODE_REGEX.test(code) || code.length !== 6) {
       message.push('invalid_code');
-    }
-    if (verifyMethod === '') {
-      message.push('verify_method');
     }
     return message;
   }
@@ -116,46 +119,48 @@ class Verify extends Component {
     const validation_state = errorMessage.length === 0 ? null : 'error';
     return (
       <div className="code_form">
-        <AlertContainer ref={a => this.msg = a} {...alertOptions} />
+        <AlertContainer ref={a => (this.msg = a)} {...alertOptions} />
         <div className="row">
           <div className="page-title">
             <h2>Verify your verification code</h2>
+            <h5>Please select your selected verification method</h5>
           </div>
-          <div className="lab">Please select your selected verification method</div>
           <div>
             <div className="col-md-5 left">
-              <div className="radio">
-                <input
-                  type="radio"
-                  name="method_radio"
-                  value="MAIL"
-                  id="MAIL"
-                  checked={this.state.verifyMethod === 'MAIL'}
-                  onChange={this.onChange('verifyMethod')}
-                />
-                <label htmlFor="MAIL">Email my alternative email</label>
-              </div>
-              <div className="radio">
-                <input
-                  type="radio"
-                  name="method_radio"
-                  value="SMS"
-                  id="SMS"
-                  checked={this.state.verifyMethod === 'SMS'}
-                  onChange={this.onChange('verifyMethod')}
-                />
-                <label htmlFor="SMS">Text my mobile phone</label>
-              </div>
-              <div className="radio">
-                <input
-                  type="radio"
-                  name="method_radio"
-                  value="CALL"
-                  id="CALL"
-                  checked={this.state.verifyMethod === 'CALL'}
-                  onChange={this.onChange('verifyMethod')}
-                />
-                <label htmlFor="CALL">Call my mobile phone</label>
+              <div className="method_radios">
+                <div className="radio">
+                  <input
+                    type="radio"
+                    name="method_radio"
+                    value="MAIL"
+                    id="MAIL"
+                    checked={this.state.verifyMethod === 'MAIL'}
+                    onChange={this.onChange('verifyMethod')}
+                  />
+                  <label htmlFor="MAIL">Email my alternative email</label>
+                </div>
+                <div className="radio">
+                  <input
+                    type="radio"
+                    name="method_radio"
+                    value="SMS"
+                    id="SMS"
+                    checked={this.state.verifyMethod === 'SMS'}
+                    onChange={this.onChange('verifyMethod')}
+                  />
+                  <label htmlFor="SMS">Text my mobile phone</label>
+                </div>
+                <div className="radio">
+                  <input
+                    type="radio"
+                    name="method_radio"
+                    value="CALL"
+                    id="CALL"
+                    checked={this.state.verifyMethod === 'CALL'}
+                    onChange={this.onChange('verifyMethod')}
+                  />
+                  <label htmlFor="CALL">Call my mobile phone</label>
+                </div>
               </div>
               {this.state.methodError && (
                 <div className="error_message">
@@ -166,9 +171,13 @@ class Verify extends Component {
             <div className="col-md-5 code-input">
               <div>
                 <Form>
-                  <FormGroup validationState={validation_state} controlId="formInlineName">
+                  <FormGroup
+                    validationState={validation_state}
+                    controlId="formInlineName"
+                  >
                     <div className="code-field">
-                      We have sent you a verification code. Please enter it below{' '}
+                      We have sent you a verification code. Please enter it
+                      below{' '}
                     </div>
                     <FormControl
                       type="text"
@@ -189,19 +198,21 @@ class Verify extends Component {
 
               {(errorMessage.indexOf('wrong_code') !== -1 ||
                 errorMessage.indexOf('invalid_code') !== -1) && (
-                  <div className="error_message">
-                    <li>The code you entered is invalid or it is expired. Please check
-                  that you have typed your code correctly or retry to get a new code.
-                </li>
-                  </div>
-                )}
+                <div className="error_message">
+                  <li>
+                    The code you entered is invalid or it is expired. Please
+                    check that you have typed your code correctly or retry to
+                    get a new code.
+                  </li>
+                </div>
+              )}
 
               <Loader loaded={this.props.loaded}>
                 <div>
                   <ButtonToolbar>
                     <Button bsStyle="primary" onClick={this.onClickNext}>
                       Next
-                  </Button>
+                    </Button>
 
                     <button
                       type="button"
@@ -209,7 +220,7 @@ class Verify extends Component {
                       onClick={this.onClickCancel}
                     >
                       Cancel
-                  </button>
+                    </button>
                   </ButtonToolbar>
                 </div>
               </Loader>

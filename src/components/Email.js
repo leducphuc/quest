@@ -111,9 +111,11 @@ class Email extends Component {
     return (
       <div className="email_form">
         <AlertContainer ref={a => this.msg = a} {...alertOptions} />
-        <h2> Who are you ? </h2>
-        <h5> To recover your account, begin by entering your user ID and the captcha below. </h5>
-        <div>
+        <div className="page-title">
+          <h2> Who are you ? </h2>
+          <h5> To recover your account, begin by entering your user ID and the captcha below. </h5>
+        </div>
+        <div className="email-input">
           <Form>
             <FormGroup validationState={validate_state} >
               <h5>User ID: </h5>

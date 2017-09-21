@@ -4,7 +4,8 @@ import {
   Modal,
   FormGroup,
   FormControl,
-  Form, ButtonToolbar,
+  Form,
+  ButtonToolbar,
 } from 'react-bootstrap';
 import {
   LOWERS,
@@ -59,7 +60,8 @@ class ResetPassword extends Component {
     const field = evt.target.id;
     const value = evt.target.value;
     const error = this.passwordValidate(field, value);
-    const errorField = field === 'password' ? 'passwordErrorMessage' : 'confirmErrorMessage';
+    const errorField =
+      field === 'password' ? 'passwordErrorMessage' : 'confirmErrorMessage';
     this.setState({
       [errorField]: error,
       errorMessage: error,
@@ -67,11 +69,11 @@ class ResetPassword extends Component {
   }
 
   onFocus(evt) {
-    this.setState( {
+    this.setState({
       errorMessage: [],
       confirmErrors: [],
       passwordErrors: [],
-    } );
+    });
   }
 
   onClickFinish() {
@@ -158,13 +160,22 @@ class ResetPassword extends Component {
   }
 
   render() {
-    const { errorMessage, success, password, confirmPassword, passwordErrorMessage, confirmErrorMessage } = this.state;
+    const {
+      errorMessage,
+      success,
+      password,
+      confirmPassword,
+      passwordErrorMessage,
+      confirmErrorMessage,
+    } = this.state;
     const passwordValidate = passwordErrorMessage.length === 0 ? null : 'error';
     const confirmValidate = confirmErrorMessage.length === 0 ? null : 'error';
     return (
       <div className="password_form">
-        <h2>Choose your new password</h2>
-        <h5>Please enter your new password</h5>
+        <div className="page-title">
+          <h2>Choose your new password</h2>
+          <h5>Please enter your new password</h5>
+        </div>
         {success && (
           <div className="static-modal">
             <Modal.Dialog>
@@ -212,9 +223,9 @@ class ResetPassword extends Component {
         {errorMessage.length >= 0 && (
           <div className="error_message">
             <div>{errorMessage[0]}</div>
-            {errorMessage.map((message, index) => (
-              index > 0 && <li key={index}>{message}</li>
-            ))}
+            {errorMessage.map(
+              (message, index) => index > 0 && <li key={index}>{message}</li>
+            )}
           </div>
         )}
         <Loader loaded={this.props.loaded}>

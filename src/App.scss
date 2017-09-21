@@ -7,87 +7,30 @@ body {
   margin-left: 0 !important;
 }
 
-.btn-email {
-  margin-top: 50px;
-  margin-bottom: 30px;
-}
-
-.password-cancel {
-  margin-top: 50px;
-}
-
-.email-button {
-  margin-top: 50px;
-}
-
-.email-component {
-  padding-left: 0 !important;
-}
-
-
-.btn-toolbar>.btn, .btn-toolbar>.btn-group, .btn-toolbar>.input-group {
-    margin-left: 5px;
-    margin-right: 30px;
-    width: 100px;
-}
-
-.web-title {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.row {
-  margin-left: 0 !important;
-}
-
-/* .panel-body {
-  width: fit-content;
-} */
-
-.code-form {
-  padding-left: 15px;
-}
-
-.code-field {
-  margin-bottom: 10px;
-}
-
-.code-input {
-  border-left: solid;
-  border-left-width: 1px;
-  border-left-color: #695454;
-  padding-left: 4%;
-  padding-top: 10px;
-}
-
-.code-input input {
-  margin: 10px;
-}
-
 h1 {
   font-size: 32px;
   line-height: normal;
   letter-spacing: -.01em;
   padding-left: 0px;
   padding-right: 0px;
+  margin: 0 0 0 0;
 }
 
 h2 {
     font-size: 22px;
     line-height: 100px;
     letter-spacing: -.01em;
+    margin: 0 0 0 0;
 }
 
 h5 {
   // margin-top: 20px !important;
-  margin-bottom: 20px !important;
+  // margin-bottom: 20px !important;
 }
 
 h1, h2, h3, h4, h6 {
     font-weight: normal;
     color: #333333;
-    margin: 0 0 0 0;
     cursor: default;
 }
 
@@ -97,18 +40,9 @@ h1, h2, h3, h4, h6 {
 }
 
 .page-title {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.navbar-brand {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-      align-items: center;
-}
-.navbar-brand>img {
-  padding: 7px 14px;
-}
 .error_message {
   color: #a94442;
 }
@@ -116,58 +50,31 @@ h1, h2, h3, h4, h6 {
   width: 304px;
 }
 
-.email-form {
-  line-height: 50px;
+.panel-default {
+  border-color: #ffffff !important;
 }
 
-.form-group {
-  margin-bottom: 4px !important;
-}
-
-
-#formInlineName {
-  width: 75%;
-}
-
-// ============================
-
-.example-email {
-  margin-bottom: 10px;
+button {
+  width: 100px;
 }
 
 .col-md-6, .col-md-8 {
   padding-left: 0 !important;
 }
-
-h5 > label {
-  margin-bottom: 20px;
-}
-
-.lab {
-  line-height: 50px;
-}
+// ============================
 
 #headerImage {
   width: 186px;
-  height: 70px !important;
+  margin-bottom: 50px;
   cursor: pointer;
 }
 
-#userId{
-  max-width: 67%;
-  min-width: 302px;
-}
-
-.checkbox+.checkbox, .radio+.radio {
+.radio+.radio {
   margin-top: 5px !important;
 }
 
 .radio input[type=radio] {
   margin-left: 0 !important;
-}
-
-.panel-default {
-  border-color: #fff !important;
 }
 
 #password, #confirmPassword {
@@ -180,11 +87,66 @@ h5 > label {
     font-weight: normal;
 }
 
-.code_form .col-md-5.left {
-  padding-left: 0 !important;
-  width: unset;
+.password-cancel {
+  margin-top: 50px;
 }
 
-#root > div > div > div.body > div > div > div.col-md-6.email-component > div > div > form > div > input {
-  width: 76%;
+.form-group {
+  margin-bottom: 4px !important;
+}
+
+.email_form {
+  button {
+    margin-left: 5px;
+    margin-right: 30px;
+    margin-top: 50px;
+  }
+
+  #userId{
+    max-width: 67%;
+    min-width: 302px;
+  }
+
+  .example-email {
+    margin-bottom: 10px;
+  }
+
+  .email-input {
+    margin-top: 20px;
+  }
+}
+
+.code_form {
+  padding-left: 15px;
+
+  .code-field {
+    margin-bottom: 10px;
+  }
+
+  .col-md-5.left {
+    padding-left: 0 !important;
+    width: unset;
+  }
+
+  .code-input {
+    border-left: solid;
+    border-left-width: 1px;
+    border-left-color: #695454;
+    padding-left: 4%;
+    padding-top: 10px;
+
+    input {
+      margin-bottom: 45px;
+    }
+  }
+
+  .method_radios {
+    margin-bottom: 30px;
+  }
+
+  // .password_form {
+  //   h5 {
+  //     margin-bottom: 100px;
+  //   }
+  // }
 }

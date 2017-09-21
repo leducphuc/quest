@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Grid, Panel } from 'react-bootstrap';
-import 'isomorphic-fetch';
-import './App.css';
-import Email from './components/Email';
-import Verify from './components/Verify';
-import ResetPassword from './components/ResetPassword';
-import logo from './image/logo-ttx.png';
+import React, { Component } from "react";
+import { Grid, Panel } from "react-bootstrap";
+import "isomorphic-fetch";
+import "./App.css";
+import Email from "./components/Email";
+import Verify from "./components/Verify";
+import ResetPassword from "./components/ResetPassword";
+import logo from "./image/logo-ttx.png";
 
 class App extends Component {
   constructor(props) {
@@ -14,10 +14,10 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 2,
-      email: '',
+      phase: 1,
+      email: "",
       loaded: true,
-      error: '',
+      error: ""
     };
   }
 
@@ -32,13 +32,14 @@ class App extends Component {
   fetchApi(url) {
     this.setState({ loaded: false });
     return fetch(url)
-      .then((response) => {
+      .then(response => {
         this.setState({ loaded: true });
         return response.json();
-      }).then((json) => {
+      })
+      .then(json => {
         return json;
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({ loaded: true });
         console.error(error);
       });
@@ -46,12 +47,12 @@ class App extends Component {
 
   render() {
     const { phase, error, loaded } = this.state;
-    const col = phase === 1 ? 'col-md-8' : 'col-md-6';
+    const col = phase === 1 ? "col-md-8" : "col-md-6";
     return (
       <div className="App">
         <Grid>
-          <div className="header">
-            <Panel className="panel-default">
+          <div className="body">
+            <Panel>
               <div className="row-fluid user-row">
                 <div className="logo-header">
                   <img
@@ -64,10 +65,6 @@ class App extends Component {
                   />
                 </div>
               </div>
-            </Panel>
-          </div>
-          <div className="body">
-            <Panel>
               <div className="web-title">
                 <h1> Get back into your account </h1>
               </div>
