@@ -10,7 +10,7 @@ h1 {
   letter-spacing: -.01em;
   padding-left: 0px;
   padding-right: 0px;
-  margin: 0 0 0 0; }
+  margin-top: 0; }
 
 h2 {
   font-size: 22px;
@@ -27,8 +27,15 @@ h1, h2, h3, h4, h6 {
   vertical-align: middle;
   border: 0; }
 
+.web-title h1 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
 .page-title {
   margin-bottom: 30px; }
+  .page-title h2 {
+    line-height: 100px;
+    margin-top: 0; }
 
 .error_message {
   color: #a94442; }
