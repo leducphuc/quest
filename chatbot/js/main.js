@@ -92,6 +92,7 @@
 				$('#start_img').attr('src', 'img/mic.gif');
 				if (final !== '') {
 					sendMessage(getMessageText(), true);
+					final = '';
 				}
 				tts = false
 			};
@@ -167,6 +168,11 @@
 			}, 300);
 
 			// send message to server and get response
+
+			$.ajaxSetup({
+				timeout: 10000 // in milliseconds 
+			});
+
 			$.get(end_point + sent_text + "&uid=" + uid, function (data, status) {
 				const mes = data.dialogMessage;
 				message = new Message({
@@ -192,6 +198,14 @@
 			});
 
 		};
+
+		$(document).ajaxStart(function () {
+			$(".message_input").prop('disabled', true);
+		});
+
+		$(document).ajaxComplete(function () {
+			$(".message_input").prop('disabled', false);
+		});
 
 		$('#send_message').click(function (e) {
 			sendMessage(getMessageText());
