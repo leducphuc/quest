@@ -98,14 +98,14 @@ button {
     margin-bottom: 10px; }
   .code_form .col-md-5.left {
     padding-left: 0 !important;
-    width: unset; }
+    width: 25%; }
   .code_form .code-input {
     border-left: solid;
     border-left-width: 1px;
     border-left-color: #695454;
     padding-left: 4%;
     padding-top: 10px; }
-    .code_form .code-input input {
-      margin-bottom: 45px; }
+    .code_form .code-input button {
+      margin-top: 30px; }
   .code_form .method_radios {
     margin-bottom: 30px; }

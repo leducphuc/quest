@@ -134,7 +134,7 @@ button {
 
   .col-md-5.left {
     padding-left: 0 !important;
-    width: unset;
+    width: 25%;
   }
 
   .code-input {
@@ -143,9 +143,8 @@ button {
     border-left-color: #695454;
     padding-left: 4%;
     padding-top: 10px;
-
-    input {
-      margin-bottom: 45px;
+    button {
+      margin-top: 30px;
     }
   }
 

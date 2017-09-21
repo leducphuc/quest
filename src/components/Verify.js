@@ -164,7 +164,7 @@ class Verify extends Component {
               </div>
               {this.state.methodError && (
                 <div className="error_message">
-                  <li>Verify method is required</li>
+                  <li>The verification method is required</li>
                 </div>
               )}
             </div>
@@ -200,10 +200,14 @@ class Verify extends Component {
                 errorMessage.indexOf('invalid_code') !== -1) && (
                 <div className="error_message">
                   <li>
-                    The code you entered is invalid (wrong or expired).
-                    Or you selected wrong the verification method.
-                    Please check that you typed your code and select
-                    the verification method correctly or retry to get the new code
+                      The code you entered is invalid (wrong or expired).
+                      Or you selected wrong the verification method.
+                    <br />
+                    <br />
+                    <p>
+                      Please check that you typed your code and select
+                      the verification method correctly or retry to get the new code.
+                    </p>
                   </li>
                 </div>
               )}

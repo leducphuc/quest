@@ -6,7 +6,7 @@ import { url_api } from '../constant';
 
 const Loader = require('react-loader');
 
-const EMAIL_REGEX = /^[-a-zA-Z0-9:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+const EMAIL_REGEX = /^[-a-zA-Z0-9:%._\+~#=]{3,27}\.ttx\b/;
 const alertOptions = {
   offset: (50, 50),
   position: 'top right',
@@ -64,7 +64,7 @@ class Email extends Component {
           this.props.increasePhase();
           this.props.setEmail(this.state.email);
         } else {
-          this.setState({ errorMessage: ['The user ID you entered does not exist. Please check that you have typed your user ID correctly.'] });
+          this.setState({ errorMessage: ['The User ID you entered does not exist. Please check that you have typed your User ID correctly.'] });
         }
       });
     }
@@ -94,7 +94,7 @@ class Email extends Component {
     if (email.length === 0) {
       message.push('User ID is required.');
     } else if (email.length < 6) {
-      message.push('User ID must contain at least 6 characters');
+      message.push('User ID must contain at least 6 characters.');
     } else if (!EMAIL_REGEX.test(email)) {
       message.push('Please type your User ID in the format user.ttx.');
     }
@@ -102,7 +102,7 @@ class Email extends Component {
   }
 
   verifyCallback() {
-    this.setState({ verifiedCaptcha: true });
+    this.setState({ verifiedCaptcha: true, captchaEror: false });
   }
 
   render() {
@@ -113,7 +113,7 @@ class Email extends Component {
         <AlertContainer ref={a => this.msg = a} {...alertOptions} />
         <div className="page-title">
           <h2> Who are you ? </h2>
-          <h5> To recover your account, begin by entering your user ID and the captcha below. </h5>
+          <h5> To recover your account, begin by entering your User ID and the captcha below. </h5>
         </div>
         <div className="email-input">
           <Form>
@@ -152,7 +152,7 @@ class Email extends Component {
           {
             this.state.captchaEror &&
             <div className="error_message">
-              Captcha is required.
+              <li>Captcha is required.</li>
             </div>
           }
 

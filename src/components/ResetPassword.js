@@ -68,7 +68,7 @@ class ResetPassword extends Component {
     });
   }
 
-  onFocus(evt) {
+  onFocus() {
     this.setState({
       errorMessage: [],
       confirmErrors: [],
@@ -113,12 +113,12 @@ class ResetPassword extends Component {
     const current_field =
       field === 'password' ? 'Password' : 'Password Confirm';
     if (value.length === 0) {
-      message.push(`${current_field} field is required!`);
+      message.push(`${current_field} field is required.`);
     } else if (field === 'password') {
       if (value.length < 6) {
-        message.push('Password must contain at least 6 characters');
+        message.push('Password must contain at least 6 characters.');
         message.push(
-          'Password must contain an upper case character, a special character and a digit'
+          'Password must contain an upper case character, a special character and a digit.'
         );
       } else {
         let missing = '';
@@ -153,7 +153,7 @@ class ResetPassword extends Component {
       }
     } else if (field === 'confirmPassword') {
       if (value !== password && password.length !== 0) {
-        message.push('Passwords do not match');
+        message.push('Passwords do not match.');
       }
     }
     return message;
@@ -173,8 +173,8 @@ class ResetPassword extends Component {
     return (
       <div className="password_form">
         <div className="page-title">
-          <h2>Choose your new password</h2>
-          <h5>Please enter your new password</h5>
+          <h2>Choose your new password.</h2>
+          <h5>Please enter your new password.</h5>
         </div>
         {success && (
           <div className="static-modal">
@@ -183,7 +183,7 @@ class ResetPassword extends Component {
                 <Modal.Title>Success</Modal.Title>
               </Modal.Header>
 
-              <Modal.Body>Success! Your password has been updated!</Modal.Body>
+              <Modal.Body>Success. Your password has been updated.</Modal.Body>
 
               <Modal.Footer>
                 <Button onClick={() => window.location.reload()}>Close</Button>
@@ -220,11 +220,18 @@ class ResetPassword extends Component {
           </FormGroup>
         </Form>
 
-        {errorMessage.length >= 0 && (
+        {errorMessage.length >= 0 && passwordErrorMessage.length > 1 && (
           <div className="error_message">
             <div>{errorMessage[0]}</div>
             {errorMessage.map(
               (message, index) => index > 0 && <li key={index}>{message}</li>
+            )}
+          </div>
+        )}
+        {errorMessage.length >= 0 && passwordErrorMessage.length <= 1 && (
+          <div className="error_message">
+            {errorMessage.map(
+              (message, index) => <li key={index}>{message}</li>
             )}
           </div>
         )}
