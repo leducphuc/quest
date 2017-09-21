@@ -1,66 +1,8 @@
 body {
-  background-color: transparent;
-}
+  background-color: transparent; }
 
 .App .container {
-  margin-left: 0 !important;
-}
-
-.btn-email {
-  margin-top: 50px;
-  margin-bottom: 30px;
-}
-
-.password-cancel {
-  margin-top: 50px;
-}
-
-.email-button {
-  margin-top: 50px;
-}
-
-.email-component {
-  padding-left: 0 !important;
-}
-
-
-.btn-toolbar>.btn, .btn-toolbar>.btn-group, .btn-toolbar>.input-group {
-    margin-left: 5px;
-    margin-right: 30px;
-    width: 100px;
-}
-
-.web-title {
-  width: fit-content;
-}
-
-.row {
-  margin-left: 0 !important;
-}
-
-/* .panel-body {
-  width: fit-content;
-} */
-
-.code-form {
-  padding-left: 15px;
-}
-
-.code-field {
-  margin-bottom: 10px;
-}
-
-.code-input {
-  border-left: solid;
-  border-left-width: 1px;
-  border-left-color: #695454;
-  padding-left: 4%;
-  padding-top: 10px;
-}
-
-.code-input input {
-  margin: 10px;
-}
+  margin-left: 0 !important; }
 
 h1 {
   font-size: 32px;
@@ -68,120 +10,95 @@ h1 {
   letter-spacing: -.01em;
   padding-left: 0px;
   padding-right: 0px;
-}
+  margin: 0 0 0 0; }
 
 h2 {
-    font-size: 22px;
-    line-height: 100px;
-    letter-spacing: -.01em;
-}
+  font-size: 22px;
+  line-height: 100px;
+  letter-spacing: -.01em;
+  margin: 0 0 0 0; }
 
 h1, h2, h3, h4, h6 {
-    font-weight: normal;
-    color: #333333;
-    margin: 0 0 0 0;
-    cursor: default;
-}
+  font-weight: normal;
+  color: #333333;
+  cursor: default; }
 
 #headerImage {
   vertical-align: middle;
-  border: 0;
-}
+  border: 0; }
 
 .page-title {
-  margin-bottom: 20px;
-}
+  margin-bottom: 30px; }
 
-.navbar-brand {
-  display: flex;
-  align-items: center;
-}
-.navbar-brand>img {
-  padding: 7px 14px;
-}
 .error_message {
-  color: #a94442;
-}
-#formInlineName {
-  width: 304px;
-}
-
-.email-form {
-  line-height: 50px;
-}
-
-.form-group {
-  margin-bottom: 4px !important;
-}
-
-#root > div > div > div.body > div > div > div.col-md-6.email-component > div > div > form > div > input {
-  width: 76%;
-}
+  color: #a94442; }
 
 #formInlineName {
-  width: 75%;
-}
+  width: 304px; }
 
-.example-email {
-  margin-bottom: 10px;
-}
+.panel-default {
+  border-color: #ffffff !important; }
 
-.code_form .col-md-5.left {
-  padding-left: 0 !important;
-  width: unset;
-}
+button {
+  width: 100px; }
 
 .col-md-6, .col-md-8 {
-  padding-left: 0 !important;
-}
-
-h5 > label {
-  margin-bottom: 20px;
-}
-
-.lab {
-  line-height: 50px;
-}
-
-h5 {
-  margin-top: 20px !important;
-  margin-bottom: 20px !important;
-}
-
-.password_form {
-  margin-top: 50px;
-}
+  padding-left: 0 !important; }
 
 #headerImage {
   width: 186px;
-  height: 70px !important;
-  cursor: pointer;
-}
+  margin-bottom: 50px;
+  cursor: pointer; }
+
+.radio + .radio {
+  margin-top: 5px !important; }
+
+.radio input[type=radio] {
+  margin-left: 0 !important; }
 
 #password, #confirmPassword {
   width: 50%;
   min-width: 352px;
-  margin-bottom: 10px;
-}
+  margin-bottom: 10px; }
 
 .password_form label {
-    font-weight: normal;
-}
+  font-weight: normal; }
 
-#userId{
+.password-cancel {
+  margin-top: 50px; }
+
+.form-group {
+  margin-bottom: 4px !important; }
+
+.email_form button {
+  margin-left: 5px;
+  margin-right: 30px;
+  margin-top: 50px; }
+
+.email_form #userId {
   max-width: 67%;
-  min-width: 302px;
-}
+  min-width: 302px; }
 
-.checkbox+.checkbox, .radio+.radio {
-  margin-top: 5px !important;
-}
+.email_form .example-email {
+  margin-bottom: 10px; }
 
-.radio input[type=radio] {
-  margin-left: 0 !important;
-}
+.email_form .email-input {
+  margin-top: 20px; }
 
-.panel-default {
-  border-color: #fff !important;
-}
-
+.code_form {
+  padding-left: 15px; }
+  .code_form .code-field {
+    margin-bottom: 10px; }
+  .code_form .col-md-5.left {
+    padding-left: 0 !important;
+    width: unset; }
+  .code_form .code-input {
+    border-left: solid;
+    border-left-width: 1px;
+    border-left-color: #695454;
+    padding-left: 4%;
+    padding-top: 10px; }
+    .code_form .code-input input {
+      margin-bottom: 45px; }
+  .code_form .method_radios {
+    margin-bottom: 30px; }

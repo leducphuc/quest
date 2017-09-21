@@ -1,0 +1,152 @@
+// Global style
+body {
+  background-color: transparent;
+}
+
+.App .container {
+  margin-left: 0 !important;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: normal;
+  letter-spacing: -.01em;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0 0 0 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 100px;
+    letter-spacing: -.01em;
+    margin: 0 0 0 0;
+}
+
+h5 {
+  // margin-top: 20px !important;
+  // margin-bottom: 20px !important;
+}
+
+h1, h2, h3, h4, h6 {
+    font-weight: normal;
+    color: #333333;
+    cursor: default;
+}
+
+#headerImage {
+  vertical-align: middle;
+  border: 0;
+}
+
+.page-title {
+  margin-bottom: 30px;
+}
+
+.error_message {
+  color: #a94442;
+}
+#formInlineName {
+  width: 304px;
+}
+
+.panel-default {
+  border-color: #ffffff !important;
+}
+
+button {
+  width: 100px;
+}
+
+.col-md-6, .col-md-8 {
+  padding-left: 0 !important;
+}
+// ============================
+
+#headerImage {
+  width: 186px;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.radio+.radio {
+  margin-top: 5px !important;
+}
+
+.radio input[type=radio] {
+  margin-left: 0 !important;
+}
+
+#password, #confirmPassword {
+  width: 50%;
+  min-width: 352px;
+  margin-bottom: 10px;
+}
+
+.password_form label {
+    font-weight: normal;
+}
+
+.password-cancel {
+  margin-top: 50px;
+}
+
+.form-group {
+  margin-bottom: 4px !important;
+}
+
+.email_form {
+  button {
+    margin-left: 5px;
+    margin-right: 30px;
+    margin-top: 50px;
+  }
+
+  #userId{
+    max-width: 67%;
+    min-width: 302px;
+  }
+
+  .example-email {
+    margin-bottom: 10px;
+  }
+
+  .email-input {
+    margin-top: 20px;
+  }
+}
+
+.code_form {
+  padding-left: 15px;
+
+  .code-field {
+    margin-bottom: 10px;
+  }
+
+  .col-md-5.left {
+    padding-left: 0 !important;
+    width: unset;
+  }
+
+  .code-input {
+    border-left: solid;
+    border-left-width: 1px;
+    border-left-color: #695454;
+    padding-left: 4%;
+    padding-top: 10px;
+
+    input {
+      margin-bottom: 45px;
+    }
+  }
+
+  .method_radios {
+    margin-bottom: 30px;
+  }
+
+  // .password_form {
+  //   h5 {
+  //     margin-bottom: 100px;
+  //   }
+  // }
+}

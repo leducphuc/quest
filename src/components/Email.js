@@ -27,6 +27,7 @@ class Email extends Component {
     this.state = {
       email: '',
       errorMessage: [],
+      captchaEror: false,
       verifiedCaptcha: false,
     };
   }
@@ -48,6 +49,10 @@ class Email extends Component {
     const { verifiedCaptcha } = this.state;
     const message = this.emailValidate();
     if (message.length !== 0) {
+      if (message.indexOf('missing_captcha') !== -1) {
+        message.splice(0, 1);
+        this.setState({ captchaEror: true });
+      }
       this.setState({ errorMessage: message });
     } else if (verifiedCaptcha) {
       const response = this.props.fetchApi(`${url_api}/checkUser?userId=${this.state.email}`);
@@ -84,11 +89,13 @@ class Email extends Component {
     const message = [];
 
     if (!verifiedCaptcha) {
-      message.push('Captcha is required.');
+      message.push('missing_captcha');
     }
     if (email.length === 0) {
       message.push('User ID is required.');
-    } else if (email.length < 6 || !EMAIL_REGEX.test(email)) {
+    } else if (email.length < 6) {
+      message.push('User ID must contain at least 6 characters');
+    } else if (!EMAIL_REGEX.test(email)) {
       message.push('Please type your User ID in the format user.ttx.');
     }
     return message;
@@ -104,12 +111,14 @@ class Email extends Component {
     return (
       <div className="email_form">
         <AlertContainer ref={a => this.msg = a} {...alertOptions} />
-        <h2> Who are you ? </h2>
-        <h5> To recover your account, begin by entering your user ID and the captcha below. </h5>
-        <div>
+        <div className="page-title">
+          <h2> Who are you ? </h2>
+          <h5> To recover your account, begin by entering your user ID and the captcha below. </h5>
+        </div>
+        <div className="email-input">
           <Form>
             <FormGroup validationState={validate_state} >
-              <h6>User ID: </h6>
+              <h5>User ID: </h5>
               <FormControl
                 id="userId"
                 type="text" value={email}
@@ -122,6 +131,7 @@ class Email extends Component {
           <div className="example-email">
             <h6>Example: user.ttx</h6>
           </div>
+
           {errorMessage.length >= 0 &&
             <div className="error_message">
               {errorMessage.map((message, index) =>
@@ -131,12 +141,21 @@ class Email extends Component {
               )}
             </div>
           }
+
           <Recaptcha
             sitekey="6Le-hy0UAAAAAKSlnMYNxzjOjSC_TxJOUCUi_TmB"
             render="explicit"
             verifyCallback={this.verifyCallback}
             onloadCallback={this.onloadCallback}
           />
+
+          {
+            this.state.captchaEror &&
+            <div className="error_message">
+              Captcha is required.
+            </div>
+          }
+
           <Loader loaded={this.props.loaded}>
             <div className="email-button">
               <ButtonToolbar>

@@ -14,7 +14,7 @@ class App extends Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.state = {
-      phase: 0,
+      phase: 1,
       email: '',
       loaded: true,
       error: '',
@@ -32,13 +32,14 @@ class App extends Component {
   fetchApi(url) {
     this.setState({ loaded: false });
     return fetch(url)
-      .then((response) => {
+      .then(response => {
         this.setState({ loaded: true });
         return response.json();
-      }).then((json) => {
+      })
+      .then(json => {
         return json;
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({ loaded: true });
         console.error(error);
       });
@@ -50,8 +51,8 @@ class App extends Component {
     return (
       <div className="App">
         <Grid>
-          <div className="header">
-            <Panel className="panel-default">
+          <div className="body">
+            <Panel>
               <div className="row-fluid user-row">
                 <div className="logo-header">
                   <img
@@ -64,10 +65,6 @@ class App extends Component {
                   />
                 </div>
               </div>
-            </Panel>
-          </div>
-          <div className="body">
-            <Panel>
               <div className="web-title">
                 <h1> Get back into your account </h1>
               </div>
