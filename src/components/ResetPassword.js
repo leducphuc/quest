@@ -35,6 +35,7 @@ class ResetPassword extends Component {
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.state = initial_state;
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentWillUpdate(nextProps) {
@@ -75,7 +76,7 @@ class ResetPassword extends Component {
     const errors = passwordErrors.concat(confirmErrors);
 
     if (errors.length !== 0) {
-      this.setState({ errorMessage: errors });
+      this.setState({ errorMessage: errors, confirmErrorMessage: confirmErrors, passwordErrorMessage: passwordErrors });
     }
 
     if (errors.length === 0) {
@@ -94,6 +95,13 @@ class ResetPassword extends Component {
 
   onClickCancel() {
     this.setState(initial_state);
+  }
+
+  handleKeyPress(evt) {
+    if (evt.key === 'Enter') {
+      evt.preventDefault();
+      this.onClickFinish();
+    }
   }
 
   passwordValidate(field, value) {
@@ -182,6 +190,7 @@ class ResetPassword extends Component {
               maxLength="128"
               onChange={this.onChange('password')}
               onBlur={this.onBlur}
+              onKeyPress={this.handleKeyPress}
             />
           </FormGroup>
           
@@ -194,6 +203,7 @@ class ResetPassword extends Component {
               maxLength="128"
               onChange={this.onChange('confirmPassword')}
               onBlur={this.onBlur}
+              onKeyPress={this.handleKeyPress}
             />
           </FormGroup>
         </Form>
